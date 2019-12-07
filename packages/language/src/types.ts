@@ -22,19 +22,25 @@ export interface Program extends Node {
   body: Body;
 }
 
-export interface LoopExpression extends Node {
+export interface Loop extends Node {
   type: "loop";
   stack: string;
   body: Body;
 }
 
-export interface FunctionExpression extends Node {
+export interface Function extends Node {
   type: "function";
   name: string;
   body: Body;
 }
 
-export interface CallExpression extends Node {
+export interface PushPop extends Node {
+  type: "pushpop";
+  left?: Identifier | Literal;
+  right?: Identifier;
+}
+
+export interface Call extends Node {
   type: "call";
   name: string;
 }
@@ -44,14 +50,15 @@ export interface Identifier extends Node {
   value: string;
 }
 
-export interface LiteralExpression extends Node {
+export interface Literal extends Node {
   type: "literal";
   value: any;
 }
 
 export type Expression =
-  | LoopExpression
-  | FunctionExpression
-  | LiteralExpression
+  | Loop
+  | Function
+  | Literal
   | Identifier
-  | CallExpression;
+  | Call
+  | PushPop;

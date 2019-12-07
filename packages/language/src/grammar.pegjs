@@ -15,10 +15,15 @@ program
 expr
   = loop
   / function
-  / literal
   / call
+  / pushpop
+  / literal
   / identifier
-  
+
+pushpop "pushpop"
+  = left:(literal/identifier)? _ ">" _ right:identifier?
+  { return makeNode("pushpop", { left, right  } ) }  
+
 function "function"
  = "{" _ name:fnname _ body:body _ "}"
  { return makeNode("function", { name, body }) }

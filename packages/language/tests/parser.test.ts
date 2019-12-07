@@ -2,32 +2,33 @@ import { parse } from "../src/parser";
 import {
   Program,
   Node,
-  CallExpression,
+  Call,
   Identifier,
-  LiteralExpression,
-  LoopExpression,
-  FunctionExpression,
+  Literal,
+  Loop,
+  Function,
+  PushPop,
 } from "../src/types";
 
 const firstNode = (program: Program): Node => program.body[0];
 
 describe("parser", () => {
   it("literal", () => {
-    const stringLit = parse('"hello"');
+    const stringLit = firstNode(parse('"hello"')) as Literal;
     expect(stringLit).toMatchSnapshot();
-    expect((firstNode(stringLit) as LiteralExpression).value).toBe("hello");
-    expect(firstNode(stringLit).type === "literal");
+    expect(stringLit.value).toBe("hello");
+    expect(stringLit.type === "literal");
 
-    const numberLit = parse("1");
+    const numberLit = firstNode(parse("1")) as Literal;
     expect(numberLit).toMatchSnapshot();
-    expect((firstNode(numberLit) as LiteralExpression).value).toBe(1);
-    expect(firstNode(numberLit).type === "literal");
+    expect(numberLit.value).toBe(1);
+    expect(numberLit.type === "literal");
   });
 
   it("identifier", () => {
-    const ident = parse("helloWorld");
-    expect(firstNode(ident).type).toBe("identifier");
-    expect((firstNode(ident) as Identifier).value).toBe("helloWorld");
+    const ident = firstNode(parse("helloWorld")) as Identifier;
+    expect(ident.type).toBe("identifier");
+    expect(ident.value).toBe("helloWorld");
     expect(ident).toMatchSnapshot();
 
     try {
@@ -37,9 +38,9 @@ describe("parser", () => {
   });
 
   it("call", () => {
-    const ident = parse(":foo");
-    expect(firstNode(ident).type).toBe("call");
-    expect((firstNode(ident) as CallExpression).name).toBe("foo");
+    const ident = firstNode(parse(":foo")) as Call;
+    expect(ident.type).toBe("call");
+    expect(ident.name).toBe("foo");
     expect(ident).toMatchSnapshot();
 
     try {
@@ -48,29 +49,67 @@ describe("parser", () => {
     } catch (e) {}
   });
 
+  it("pushpop", () => {
+    {
+      const pushpop = firstNode(parse("a > b")) as PushPop;
+      expect(pushpop.type).toBe("pushpop");
+
+      expect(pushpop.left!.type).toBe("identifier");
+      expect(pushpop.left!.value).toBe("a");
+
+      expect(pushpop.right!.type).toBe("identifier");
+      expect(pushpop.right!.value).toBe("b");
+    }
+
+    {
+      const pushpop = firstNode(parse("1 > b")) as PushPop;
+      expect(pushpop.type).toBe("pushpop");
+
+      expect(pushpop.left!.type).toBe("literal");
+      expect(pushpop.left!.value).toBe(1);
+
+      expect(pushpop.right!.type).toBe("identifier");
+      expect(pushpop.right!.value).toBe("b");
+    }
+
+    {
+      const pushpop = firstNode(parse("a>")) as PushPop;
+      expect(pushpop.type).toBe("pushpop");
+
+      expect(pushpop.left!.type).toBe("identifier");
+      expect(pushpop.left!.value).toBe("a");
+
+      expect(pushpop.right).toBe(null);
+    }
+  });
+
   it("loop", () => {
-    const loop = parse(`
+    const loop = firstNode(
+      parse(`
 (a
 b c d e f 
 
 g)
-`);
+`),
+    ) as Loop;
 
-    expect(firstNode(loop).type).toBe("loop");
-    expect((firstNode(loop) as LoopExpression).stack).toBe("a");
+    expect(loop.type).toBe("loop");
+    expect(loop.stack).toBe("a");
     expect(loop).toMatchSnapshot();
   });
 
   it("function", () => {
-    const func = parse(`
+    const func = firstNode(
+      parse(`
 {:foo
 b c d e f 
 
 g}
-`);
+`),
+    ) as Function;
 
-    expect(firstNode(func).type).toBe("function");
-    expect((firstNode(func) as FunctionExpression).name).toBe("foo");
+    expect(func.type).toBe("function");
+    expect(func.name).toBe("foo");
     expect(func).toMatchSnapshot();
   });
 });

@@ -2,13 +2,8 @@
 
 exports[`parser call 1`] = `
 Object {
-  "body": Array [
-    Object {
-      "name": "foo",
-      "type": "call",
-    },
-  ],
-  "type": "program",
+  "name": "foo",
+  "type": "call",
 }
 `;
 
@@ -16,73 +11,53 @@ exports[`parser function 1`] = `
 Object {
   "body": Array [
     Object {
-      "body": Array [
-        Object {
-          "type": "identifier",
-          "value": "b",
-        },
-        Object {
-          "type": "identifier",
-          "value": "c",
-        },
-        Object {
-          "type": "identifier",
-          "value": "d",
-        },
-        Object {
-          "type": "identifier",
-          "value": "e",
-        },
-        Object {
-          "type": "identifier",
-          "value": "f",
-        },
-        Object {
-          "type": "identifier",
-          "value": "g",
-        },
-      ],
-      "name": "foo",
-      "type": "function",
+      "type": "identifier",
+      "value": "b",
+    },
+    Object {
+      "type": "identifier",
+      "value": "c",
+    },
+    Object {
+      "type": "identifier",
+      "value": "d",
+    },
+    Object {
+      "type": "identifier",
+      "value": "e",
+    },
+    Object {
+      "type": "identifier",
+      "value": "f",
+    },
+    Object {
+      "type": "identifier",
+      "value": "g",
     },
   ],
-  "type": "program",
+  "name": "foo",
+  "type": "function",
 }
 `;
 
 exports[`parser identifier 1`] = `
 Object {
-  "body": Array [
-    Object {
-      "type": "identifier",
-      "value": "helloWorld",
-    },
-  ],
-  "type": "program",
+  "type": "identifier",
+  "value": "helloWorld",
 }
 `;
 
 exports[`parser literal 1`] = `
 Object {
-  "body": Array [
-    Object {
-      "type": "literal",
-      "value": "hello",
-    },
-  ],
-  "type": "program",
+  "type": "literal",
+  "value": "hello",
 }
 `;
 
 exports[`parser literal 2`] = `
 Object {
-  "body": Array [
-    Object {
-      "type": "literal",
-      "value": 1,
-    },
-  ],
-  "type": "program",
+  "type": "literal",
+  "value": 1,
 }
 `;
 
@@ -90,36 +65,31 @@ exports[`parser loop 1`] = `
 Object {
   "body": Array [
     Object {
-      "body": Array [
-        Object {
-          "type": "identifier",
-          "value": "b",
-        },
-        Object {
-          "type": "identifier",
-          "value": "c",
-        },
-        Object {
-          "type": "identifier",
-          "value": "d",
-        },
-        Object {
-          "type": "identifier",
-          "value": "e",
-        },
-        Object {
-          "type": "identifier",
-          "value": "f",
-        },
-        Object {
-          "type": "identifier",
-          "value": "g",
-        },
-      ],
-      "stack": "a",
-      "type": "loop",
+      "type": "identifier",
+      "value": "b",
+    },
+    Object {
+      "type": "identifier",
+      "value": "c",
+    },
+    Object {
+      "type": "identifier",
+      "value": "d",
+    },
+    Object {
+      "type": "identifier",
+      "value": "e",
+    },
+    Object {
+      "type": "identifier",
+      "value": "f",
+    },
+    Object {
+      "type": "identifier",
+      "value": "g",
     },
   ],
-  "type": "program",
+  "stack": "a",
+  "type": "loop",
 }
 `;
