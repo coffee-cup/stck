@@ -1,4 +1,4 @@
 import { parse as parseRaw } from "./parserRaw";
-import { Expression } from "./types";
+import { Program } from "./types";
 
-export const parse = (input: string): Expression => parseRaw(input);
+export const parse = (input: string): Program => parseRaw(input);

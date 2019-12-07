@@ -2,46 +2,42 @@
   const makeNode = (type, value) => ({
     type,
     ...value,
-    ...location()
+    //...location()
   })
 }
 
-start = _ body:expr _ { return body }
+start = program
+
+program 
+  = _ body:body _
+  { return makeNode("program", { body }) }
 
 expr
-  = function
-  / if
+  = loop
+  / function
+  / literal
   / call
-  
-if "if expression"
-  = "if" _ "(" _ cond:expr _ ")" _ trueBranch:expr _ "else" _ falseBranch:expr
-  { return makeNode("if", { cond, trueBranch, falseBranch }) }
+  / identifier
   
 function "function"
-  = "(" _ param:identifier _ ")" _ "=>" _ body:expr
-  { return makeNode("function", { param, body }) }
+ = "{" _ name:fnname _ body:body _ "}"
+ { return makeNode("function", { name, body }) }
 
-call "function call"
-  = head:atom tail:args*
-  { 
-    return tail.reduce((acc, n) => {
-      n["callee"] = acc;
-      return n
-  	}, head)
-  }
-
-args = "(" _ arg:expr _ ")" 
-  { return makeNode("call", { arg }) }
+loop "loop"
+  = "(" _ id:identifier _ body:body _ ")"
+  { return makeNode("loop", { stack: id.value, body }) }
   
-atom
-  = number
-  / identifier
-  / literal
-  / parens
+body
+ = exprs:(_ e:expr { return e })*
+ { return exprs }
   
-parens =
-  "(" _ value:expr _ ")"
-  { return makeNode("parens", { value }) }
+call "call"
+  = name:fnname
+  { return makeNode("call", { name }) }
+  
+fnname 
+  = ":" id:identifier
+  { return id.value }
 
 identifier "identifier" 
   = [a-zA-Z]+ 

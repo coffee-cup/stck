@@ -2,393 +2,124 @@
 
 exports[`parser call 1`] = `
 Object {
-  "arg": Object {
-    "end": Object {
-      "column": 6,
-      "line": 1,
-      "offset": 5,
-    },
-    "start": Object {
-      "column": 5,
-      "line": 1,
-      "offset": 4,
-    },
-    "type": "identifier",
-    "value": "a",
-  },
-  "callee": Object {
-    "end": Object {
-      "column": 4,
-      "line": 1,
-      "offset": 3,
-    },
-    "start": Object {
-      "column": 1,
-      "line": 1,
-      "offset": 0,
-    },
-    "type": "identifier",
-    "value": "foo",
-  },
-  "end": Object {
-    "column": 7,
-    "line": 1,
-    "offset": 6,
-  },
-  "start": Object {
-    "column": 4,
-    "line": 1,
-    "offset": 3,
-  },
-  "type": "call",
-}
-`;
-
-exports[`parser call 2`] = `
-Object {
-  "arg": Object {
-    "end": Object {
-      "column": 9,
-      "line": 1,
-      "offset": 8,
-    },
-    "start": Object {
-      "column": 8,
-      "line": 1,
-      "offset": 7,
-    },
-    "type": "identifier",
-    "value": "b",
-  },
-  "callee": Object {
-    "arg": Object {
-      "end": Object {
-        "column": 6,
-        "line": 1,
-        "offset": 5,
-      },
-      "start": Object {
-        "column": 5,
-        "line": 1,
-        "offset": 4,
-      },
-      "type": "identifier",
-      "value": "a",
-    },
-    "callee": Object {
-      "end": Object {
-        "column": 4,
-        "line": 1,
-        "offset": 3,
-      },
-      "start": Object {
-        "column": 1,
-        "line": 1,
-        "offset": 0,
-      },
-      "type": "identifier",
-      "value": "foo",
-    },
-    "end": Object {
-      "column": 7,
-      "line": 1,
-      "offset": 6,
-    },
-    "start": Object {
-      "column": 4,
-      "line": 1,
-      "offset": 3,
-    },
-    "type": "call",
-  },
-  "end": Object {
-    "column": 10,
-    "line": 1,
-    "offset": 9,
-  },
-  "start": Object {
-    "column": 7,
-    "line": 1,
-    "offset": 6,
-  },
-  "type": "call",
-}
-`;
-
-exports[`parser function expression 1`] = `
-Object {
-  "body": Object {
-    "end": Object {
-      "column": 9,
-      "line": 1,
-      "offset": 8,
-    },
-    "start": Object {
-      "column": 8,
-      "line": 1,
-      "offset": 7,
-    },
-    "type": "identifier",
-    "value": "a",
-  },
-  "end": Object {
-    "column": 9,
-    "line": 1,
-    "offset": 8,
-  },
-  "param": Object {
-    "end": Object {
-      "column": 3,
-      "line": 1,
-      "offset": 2,
-    },
-    "start": Object {
-      "column": 2,
-      "line": 1,
-      "offset": 1,
-    },
-    "type": "identifier",
-    "value": "x",
-  },
-  "start": Object {
-    "column": 1,
-    "line": 1,
-    "offset": 0,
-  },
-  "type": "function",
-}
-`;
-
-exports[`parser function expression 2`] = `
-Object {
-  "body": Object {
-    "body": Object {
-      "arg": Object {
-        "end": Object {
-          "column": 23,
-          "line": 1,
-          "offset": 22,
-        },
-        "start": Object {
-          "column": 22,
-          "line": 1,
-          "offset": 21,
-        },
-        "type": "identifier",
-        "value": "y",
-      },
-      "callee": Object {
-        "arg": Object {
-          "end": Object {
-            "column": 20,
-            "line": 1,
-            "offset": 19,
-          },
-          "start": Object {
-            "column": 19,
-            "line": 1,
-            "offset": 18,
-          },
-          "type": "identifier",
-          "value": "x",
-        },
-        "callee": Object {
-          "end": Object {
-            "column": 18,
-            "line": 1,
-            "offset": 17,
-          },
-          "start": Object {
-            "column": 15,
-            "line": 1,
-            "offset": 14,
-          },
-          "type": "identifier",
-          "value": "foo",
-        },
-        "end": Object {
-          "column": 21,
-          "line": 1,
-          "offset": 20,
-        },
-        "start": Object {
-          "column": 18,
-          "line": 1,
-          "offset": 17,
-        },
-        "type": "call",
-      },
-      "end": Object {
-        "column": 24,
-        "line": 1,
-        "offset": 23,
-      },
-      "start": Object {
-        "column": 21,
-        "line": 1,
-        "offset": 20,
-      },
+  "body": Array [
+    Object {
+      "name": "foo",
       "type": "call",
     },
-    "end": Object {
-      "column": 24,
-      "line": 1,
-      "offset": 23,
+  ],
+  "type": "program",
+}
+`;
+
+exports[`parser function 1`] = `
+Object {
+  "body": Array [
+    Object {
+      "body": Array [
+        Object {
+          "type": "identifier",
+          "value": "b",
+        },
+        Object {
+          "type": "identifier",
+          "value": "c",
+        },
+        Object {
+          "type": "identifier",
+          "value": "d",
+        },
+        Object {
+          "type": "identifier",
+          "value": "e",
+        },
+        Object {
+          "type": "identifier",
+          "value": "f",
+        },
+        Object {
+          "type": "identifier",
+          "value": "g",
+        },
+      ],
+      "name": "foo",
+      "type": "function",
     },
-    "param": Object {
-      "end": Object {
-        "column": 10,
-        "line": 1,
-        "offset": 9,
-      },
-      "start": Object {
-        "column": 9,
-        "line": 1,
-        "offset": 8,
-      },
-      "type": "identifier",
-      "value": "y",
-    },
-    "start": Object {
-      "column": 8,
-      "line": 1,
-      "offset": 7,
-    },
-    "type": "function",
-  },
-  "end": Object {
-    "column": 24,
-    "line": 1,
-    "offset": 23,
-  },
-  "param": Object {
-    "end": Object {
-      "column": 3,
-      "line": 1,
-      "offset": 2,
-    },
-    "start": Object {
-      "column": 2,
-      "line": 1,
-      "offset": 1,
-    },
-    "type": "identifier",
-    "value": "x",
-  },
-  "start": Object {
-    "column": 1,
-    "line": 1,
-    "offset": 0,
-  },
-  "type": "function",
+  ],
+  "type": "program",
 }
 `;
 
 exports[`parser identifier 1`] = `
 Object {
-  "end": Object {
-    "column": 2,
-    "line": 1,
-    "offset": 1,
-  },
-  "start": Object {
-    "column": 1,
-    "line": 1,
-    "offset": 0,
-  },
-  "type": "identifier",
-  "value": "a",
-}
-`;
-
-exports[`parser if expression 1`] = `
-Object {
-  "cond": Object {
-    "end": Object {
-      "column": 9,
-      "line": 1,
-      "offset": 8,
+  "body": Array [
+    Object {
+      "type": "identifier",
+      "value": "helloWorld",
     },
-    "start": Object {
-      "column": 5,
-      "line": 1,
-      "offset": 4,
-    },
-    "type": "identifier",
-    "value": "cond",
-  },
-  "end": Object {
-    "column": 38,
-    "line": 1,
-    "offset": 37,
-  },
-  "falseBranch": Object {
-    "end": Object {
-      "column": 38,
-      "line": 1,
-      "offset": 37,
-    },
-    "start": Object {
-      "column": 27,
-      "line": 1,
-      "offset": 26,
-    },
-    "type": "identifier",
-    "value": "falseBranch",
-  },
-  "start": Object {
-    "column": 1,
-    "line": 1,
-    "offset": 0,
-  },
-  "trueBranch": Object {
-    "end": Object {
-      "column": 21,
-      "line": 1,
-      "offset": 20,
-    },
-    "start": Object {
-      "column": 11,
-      "line": 1,
-      "offset": 10,
-    },
-    "type": "identifier",
-    "value": "trueBranch",
-  },
-  "type": "if",
+  ],
+  "type": "program",
 }
 `;
 
 exports[`parser literal 1`] = `
 Object {
-  "end": Object {
-    "column": 8,
-    "line": 1,
-    "offset": 7,
-  },
-  "start": Object {
-    "column": 1,
-    "line": 1,
-    "offset": 0,
-  },
-  "type": "literal",
-  "value": "hello",
+  "body": Array [
+    Object {
+      "type": "literal",
+      "value": "hello",
+    },
+  ],
+  "type": "program",
 }
 `;
 
 exports[`parser literal 2`] = `
 Object {
-  "end": Object {
-    "column": 2,
-    "line": 1,
-    "offset": 1,
-  },
-  "start": Object {
-    "column": 1,
-    "line": 1,
-    "offset": 0,
-  },
-  "type": "literal",
-  "value": 1,
+  "body": Array [
+    Object {
+      "type": "literal",
+      "value": 1,
+    },
+  ],
+  "type": "program",
+}
+`;
+
+exports[`parser loop 1`] = `
+Object {
+  "body": Array [
+    Object {
+      "body": Array [
+        Object {
+          "type": "identifier",
+          "value": "b",
+        },
+        Object {
+          "type": "identifier",
+          "value": "c",
+        },
+        Object {
+          "type": "identifier",
+          "value": "d",
+        },
+        Object {
+          "type": "identifier",
+          "value": "e",
+        },
+        Object {
+          "type": "identifier",
+          "value": "f",
+        },
+        Object {
+          "type": "identifier",
+          "value": "g",
+        },
+      ],
+      "stack": "a",
+      "type": "loop",
+    },
+  ],
+  "type": "program",
 }
 `;

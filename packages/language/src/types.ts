@@ -15,22 +15,28 @@ export interface Node extends Location {
   type: string;
 }
 
-export interface FunctionExpression extends Node {
-  type: "function";
-  param: Expression;
-  body: Expression;
+type Body = Expression[];
+
+export interface Program extends Node {
+  type: "program";
+  body: Body;
 }
 
-export interface IfExpression extends Node {
-  type: "if";
-  cond: Expression;
-  trueBranch: Expression;
-  falseBranch: Expression;
+export interface LoopExpression extends Node {
+  type: "loop";
+  stack: string;
+  body: Body;
+}
+
+export interface FunctionExpression extends Node {
+  type: "function";
+  name: string;
+  body: Body;
 }
 
 export interface CallExpression extends Node {
-  callee: Expression;
-  arg: Expression;
+  type: "call";
+  name: string;
 }
 
 export interface Identifier extends Node {
@@ -44,8 +50,8 @@ export interface LiteralExpression extends Node {
 }
 
 export type Expression =
+  | LoopExpression
   | FunctionExpression
-  | IfExpression
-  | CallExpression
   | LiteralExpression
-  | Identifier;
+  | Identifier
+  | CallExpression;
