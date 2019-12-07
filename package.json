@@ -1,0 +1,21 @@
+{
+  "name": "stck",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p . --build",
+    "test": "wsrun test --exclude-missing"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "prettier": "^1.19.1",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.3",
+    "wsrun": "^5.1.0"
+  }
+}

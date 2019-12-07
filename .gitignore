@@ -1,0 +1,36 @@
+# Output
+build
+dev
+dist
+lib
+transpiled
+
+# Development
+.envrc.local
+
+# JavaScript
+*.tsbuildinfo
+.tern-port
+node_modules
+
+# Jest
+coverage
+
+# Parcel
+.cache
+
+# Yarn
+yarn-error.log
+
+# VSCode
+.vscode/settings.json
+
+# IntelliJ IDEA
+.idea
+*.iml
+
+# Firebase
+.firebase
+
+# MacOSX
+.DS_Store
