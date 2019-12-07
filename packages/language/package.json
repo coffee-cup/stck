@@ -5,11 +5,20 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "test": "jest"
+    "generate-parser": "pegjs --plugin ../../node_modules/ts-pegjs/src/tspegjs.js -o src/parserRaw.ts src/grammar.pegjs && prettier src/parserRaw.ts --write",
+    "build": "tsc -p .",
+    "test": "yarn generate-parser && jest"
   },
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "pegjs": "^0.10.0",
+    "ts-pegjs": "^0.2.6"
+  },
   "devDependencies": {
     "@types/jest": "^24.0.23",
+    "@types/lodash": "^4.14.149",
+    "@types/node": "^12.12.14",
+    "@types/pegjs": "^0.10.1",
     "jest": "^24.9.0",
     "ts-jest": "^24.2.0"
   },

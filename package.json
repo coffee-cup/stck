@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "build": "tsc -p . --build",
-    "test": "wsrun test --exclude-missing"
+    "test": "wsrun --exclude-missing test"
   },
   "workspaces": [
     "packages/*"
