@@ -11,28 +11,16 @@ exports[`parser function 1`] = `
 Object {
   "body": Array [
     Object {
-      "type": "identifier",
-      "value": "b",
-    },
-    Object {
-      "type": "identifier",
-      "value": "c",
-    },
-    Object {
-      "type": "identifier",
-      "value": "d",
-    },
-    Object {
-      "type": "identifier",
-      "value": "e",
-    },
-    Object {
-      "type": "identifier",
-      "value": "f",
-    },
-    Object {
-      "type": "identifier",
-      "value": "g",
+      "left": Object {
+        "type": "identifier",
+        "value": "a",
+      },
+      "op": "+",
+      "right": Object {
+        "type": "identifier",
+        "value": "b",
+      },
+      "type": "operator",
     },
   ],
   "name": "foo",
@@ -40,24 +28,11 @@ Object {
 }
 `;
 
-exports[`parser identifier 1`] = `
+exports[`parser function 2`] = `
 Object {
-  "type": "identifier",
-  "value": "helloWorld",
-}
-`;
-
-exports[`parser literal 1`] = `
-Object {
-  "type": "literal",
-  "value": "hello",
-}
-`;
-
-exports[`parser literal 2`] = `
-Object {
-  "type": "literal",
-  "value": 1,
+  "body": Array [],
+  "name": "foo",
+  "type": "function",
 }
 `;
 
@@ -65,31 +40,69 @@ exports[`parser loop 1`] = `
 Object {
   "body": Array [
     Object {
-      "type": "identifier",
-      "value": "b",
-    },
-    Object {
-      "type": "identifier",
-      "value": "c",
-    },
-    Object {
-      "type": "identifier",
-      "value": "d",
-    },
-    Object {
-      "type": "identifier",
-      "value": "e",
-    },
-    Object {
-      "type": "identifier",
-      "value": "f",
-    },
-    Object {
-      "type": "identifier",
-      "value": "g",
+      "left": Object {
+        "type": "identifier",
+        "value": "a",
+      },
+      "op": "+",
+      "right": Object {
+        "type": "identifier",
+        "value": "b",
+      },
+      "type": "operator",
     },
   ],
   "stack": "a",
   "type": "loop",
+}
+`;
+
+exports[`parser loop 2`] = `
+Object {
+  "body": Array [],
+  "stack": "a",
+  "type": "loop",
+}
+`;
+
+exports[`parser operators 1`] = `
+Object {
+  "left": Object {
+    "type": "identifier",
+    "value": "a",
+  },
+  "op": "+",
+  "right": null,
+  "type": "operator",
+}
+`;
+
+exports[`parser operators 2`] = `
+Object {
+  "left": Object {
+    "type": "identifier",
+    "value": "a",
+  },
+  "op": "+",
+  "right": Object {
+    "type": "identifier",
+    "value": "b",
+  },
+  "type": "operator",
+}
+`;
+
+exports[`parser operators 3`] = `
+Object {
+  "left": Object {
+    "type": "identifier",
+    "value": "a",
+  },
+  "op": "+",
+  "right": Object {
+    "type": "literal",
+    "value": 2,
+  },
+  "type": "operator",
 }
 `;

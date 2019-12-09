@@ -17,12 +17,17 @@ expr
   / function
   / call
   / pushpop
-  / literal
-  / identifier
+  / operator
 
 pushpop "pushpop"
   = left:(literal/identifier)? _ ">" _ right:identifier?
   { return makeNode("pushpop", { left, right  } ) }  
+  
+operator "operator"
+  = left:identifier _ op:OP _ right:(literal/identifier)?
+  { return makeNode("operator", { left, op, right }) }
+  
+OP = "+" / "-" / "*" / "/"
 
 function "function"
  = "{" _ name:fnname _ body:body _ "}"

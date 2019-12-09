@@ -40,6 +40,15 @@ export interface PushPop extends Node {
   right?: Identifier;
 }
 
+export type OP = "+" | "_" | "*" | "/";
+
+export interface Operator extends Node {
+  type: "operator";
+  op: string;
+  left: Identifier;
+  right?: Identifier;
+}
+
 export interface Call extends Node {
   type: "call";
   name: string;
@@ -61,4 +70,5 @@ export type Expression =
   | Literal
   | Identifier
   | Call
-  | PushPop;
+  | PushPop
+  | Operator;
