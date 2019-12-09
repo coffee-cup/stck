@@ -4,6 +4,7 @@ import css from "@styled-system/css";
 import { Styled } from "theme-ui";
 import Layout from "../components/Layout";
 import Link from "../components/Link";
+import Container from "../components/Container";
 
 const StyledHome = styled(Styled.div)(
   css({
@@ -17,12 +18,12 @@ const StyledHome = styled(Styled.div)(
 const Home = () => (
   <Layout noHeader>
     <StyledHome className="home">
-      <div>
+      <Container>
         <h1>Stck</h1>
         <p>Stack based programming language</p>
 
         <Link to="/playground">Playground</Link>
-      </div>
+      </Container>
     </StyledHome>
   </Layout>
 );

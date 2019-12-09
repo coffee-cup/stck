@@ -1,17 +1,77 @@
 import * as React from "react";
 import styled from "@emotion/styled";
 import css from "@styled-system/css";
-import { Styled } from "theme-ui";
+import { UnControlled as CodeMirror } from "react-codemirror2";
 
-const StyledEditor = styled(Styled.div)(
-  css({
-    display: "flex",
-    alignItems: "center",
-    minHeight: "100vh",
-    pb: 1,
-  }),
+import "codemirror/lib/codemirror.css";
+import "./editor-theme.css";
+
+import "codemirror/addon/comment/comment";
+import "codemirror/addon/display/placeholder";
+import "codemirror/addon/edit/closebrackets";
+import "codemirror/addon/edit/matchbrackets";
+
+export interface Props {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const codemirrorConfig = {
+  mode: "text",
+  indentUnit: 2,
+  tabSize: 2,
+  indentWithTabs: false,
+  theme: "one-dark",
+  lineNumbers: true,
+  lineWrapping: false,
+  autoCloseBrackets: true,
+  placeholder: "Type some stuff!",
+  gutters: ["CodeMirror-linenumbers"],
+  matchBrackets: true,
+  styleActiveLine: true,
+  hintOptions: {
+    completeSingle: false,
+  },
+};
+
+const Editor: React.FC<Props> = props => (
+  <EditorContainer>
+    <CodeMirror
+      value={props.value}
+      detach={true}
+      options={codemirrorConfig}
+      onChange={(_editor, _data, value) => {
+        props.onChange(value);
+      }}
+    />
+  </EditorContainer>
 );
 
-const Editor = () => <StyledEditor>This is the editor</StyledEditor>;
-
 export default Editor;
+
+const EditorContainer = styled.div(
+  css({
+    flexGrow: 1,
+    height: "100%",
+
+    ".react-codemirror2": {
+      width: "100%",
+      minHeight: "100%",
+      minWidth: "100%",
+    },
+
+    ".CodeMirror": {
+      maxHeight: "100%",
+      height: props => ["500px", `calc(100vh - ${props.sizes.header})`],
+    },
+
+    ".CodeMirror-line": {
+      "-webkit-font-smoothing": "auto",
+      "-moz-osx-font-smoothing": "auto",
+    },
+
+    ".highlighted": {
+      background: "#4b5263",
+    },
+  }),
+);

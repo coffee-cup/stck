@@ -1,12 +1,11 @@
-import * as React from "react";
 import styled from "@emotion/styled";
+import css from "@styled-system/css";
 
-const StyledContainer = styled.div`
-  max-width: 48ch;
-`;
-
-const Container: React.FC = props => (
-  <StyledContainer>{props.children}</StyledContainer>
+const Container = styled.div(
+  css({
+    maxWidth: "container",
+    px: 4,
+  }),
 );
 
 export default Container;

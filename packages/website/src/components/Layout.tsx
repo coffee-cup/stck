@@ -20,12 +20,11 @@ export interface Props extends FrontMatter {
 
 const ContentWrapper = styled(Styled.root)(
   css({
-    maxWidth: "container",
     color: "text",
+    backgroundColor: "background",
     my: 0,
     mx: "auto",
-    py: 0,
-    px: 4,
+    p: 0,
     fontSize: [2],
   }),
 );

@@ -26,8 +26,8 @@ const font = [
 const theme: Theme = {
   ...system,
   colors: {
-    text: "#333",
-    background: "white",
+    text: "white",
+    background: "#333",
     primary: "#4d3ae2",
     secondary: "text",
     muted: "#eff0f6",

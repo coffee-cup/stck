@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "@emotion/styled";
 import css from "@styled-system/css";
 import Section from "./Section";
+import Container from "./Container";
 
 const StyledFooter = styled.footer(
   css({
@@ -12,9 +13,11 @@ const StyledFooter = styled.footer(
 
 const Footer = () => (
   <StyledFooter>
-    <Section>
-      <h3>♥</h3>
-    </Section>
+    <Container>
+      <Section>
+        <h3>♥</h3>
+      </Section>
+    </Container>
   </StyledFooter>
 );
 
