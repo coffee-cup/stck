@@ -66,8 +66,8 @@ const EditorContainer = styled.div(
     },
 
     ".CodeMirror-line": {
-      "-webkit-font-smoothing": "auto",
-      "-moz-osx-font-smoothing": "auto",
+      WebkitFontSmoothing: "auto",
+      MozOsxFontSmoothing: "auto",
     },
 
     ".highlighted": {

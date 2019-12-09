@@ -1,7 +1,7 @@
 {
   "name": "stck-website",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -14,6 +14,7 @@
     "tsc": "tsc -p . --noEmit --watch"
   },
   "dependencies": {
+    "stck": "0.0.1",
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.23",
     "@mdx-js/mdx": "^1.0.10",

@@ -1,4 +1,7 @@
 {
   "files": [],
-  "references": [{ "path": "language" }]
+  "references": [
+    { "path": "packages/language" },
+    { "path": "packages/website" }
+  ]
 }

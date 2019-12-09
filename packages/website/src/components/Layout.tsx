@@ -1,5 +1,4 @@
 import { MDXProvider } from "@mdx-js/react";
-import { Location } from "@reach/router";
 import * as React from "react";
 import { Styled } from "theme-ui";
 import styled from "@emotion/styled";

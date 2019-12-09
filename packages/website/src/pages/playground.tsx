@@ -5,6 +5,7 @@ import { Styled } from "theme-ui";
 import Layout from "../components/Layout";
 import Editor from "../components/Editor";
 import { useStore } from "../store";
+import { parse } from "stck";
 
 const StyledPlayground = styled(Styled.div)(
   css({
@@ -36,11 +37,30 @@ const ResultsContainer = styled.div(
 
 const Results = styled.div(
   css({
-    backgroundColor: "darkgrey",
-    minHeight: "400px",
+    fontFamily: "monospace",
+    whiteSpace: "pre-wrap",
+    backgroundColor: "#282c34",
     height: "100%",
+    p: 2,
+    borderLeft: "solid 2px",
+    borderColor: "primary",
   }),
 );
+
+const useAst = (code: string) => {
+  const ast = React.useMemo(() => {
+    try {
+      const ast = parse(code);
+      return { ast };
+    } catch (e) {
+      const start = e.location.start;
+      const error = `Error ${start.line}:${start.column}\n\n${e.message}`;
+      return { error };
+    }
+  }, [code]);
+
+  return ast;
+};
 
 const Playground = () => {
   const { code, actions } = useStore(store => ({
@@ -48,8 +68,10 @@ const Playground = () => {
     actions: store.actions,
   }));
 
+  const { ast, error } = useAst(code);
+
   return (
-    <Layout>
+    <Layout title="Playground" description="Try Stck!">
       <StyledPlayground className="playground">
         <Split className="split">
           <EditorContainer>
@@ -57,7 +79,10 @@ const Playground = () => {
           </EditorContainer>
 
           <ResultsContainer>
-            <Results />
+            <Results>
+              {ast != null && JSON.stringify(ast, null, 2)}
+              {error != null && error}
+            </Results>
           </ResultsContainer>
         </Split>
       </StyledPlayground>

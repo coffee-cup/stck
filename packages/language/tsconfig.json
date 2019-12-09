@@ -5,6 +5,7 @@
     "target": "es5",
     "lib": ["es2015", "dom"],
     "moduleResolution": "node",
+    "composite": true,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,

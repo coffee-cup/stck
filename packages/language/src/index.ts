@@ -1,1 +1,1 @@
-console.log("stck");
+export * from "./parser";

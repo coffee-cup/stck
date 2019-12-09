@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
     "target": "es5",
     "lib": ["es2015", "dom"],
     "moduleResolution": "node",
@@ -9,10 +11,11 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false,
     "noImplicitReturns": false,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "jsx": "preserve",
     "esModuleInterop": true
   },
-  "include": ["src", "typings"]
+  "include": ["src", "typings"],
+  "references": [{ "path": "../language" }]
 }
