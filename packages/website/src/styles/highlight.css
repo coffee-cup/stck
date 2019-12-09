@@ -1,0 +1,169 @@
+:root {
+  --text: #191B2A;
+  --background: #EFF0F6;
+  --highlight: #d5d8ee;
+  --highlight-border: #00E3A0;
+
+  --comment: #655f6d;
+  --string: #2a9292;
+  --tag: #986801;
+  --attr: #2a9292;
+  --boolean: #aa573c;
+  --keyword: #955ae7;
+  --operator: #be4678;
+  --function: #4078F2;
+  --variable: #be4678;
+  --constant: #aa573c;
+}
+
+/**
+ * Github-like theme for Prism.js
+ * @author Luke Askew http://github.com/lukeaskew
+ */
+code,
+code[class*='language-'],
+pre[class*='language-'] {
+  color: var(--text);
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  tab-size: 4;
+  hyphens: none;
+  font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  line-height: 1.5;
+  direction: ltr;
+  cursor: text;
+}
+
+pre[class*='language-'] {
+  overflow: auto;
+  margin: 1em 0;
+  padding: 1.2em;
+  border-radius: 3px;
+  font-size: 95%;
+}
+
+p code,
+li code,
+table code {
+  margin: 0;
+  border-radius: 3px;
+  padding: 0.2em 0;
+  font-size: 85%;
+}
+p code:before, p code:after,
+li code:before,
+li code:after,
+table code:before,
+table code:after {
+  letter-spacing: -0.2em;
+  content: '\00a0';
+}
+
+code,
+:not(pre) > code[class*='language-'],
+pre[class*='language-'] {
+  background: var(--background);
+}
+
+:not(pre) > code[class*='language-'] {
+  padding: 0.1em;
+  border-radius: 0.3em;
+}
+
+.token.comment, .token.prolog, .token.doctype, .token.cdata {
+  color: var(--comment);
+}
+
+.token.hvariable {
+  /* color: var(--variable); */
+}
+
+.token.constant {
+  color: var(--constant);
+}
+
+.token.string {
+  color: var(--string);
+}
+
+.token.punctuation {
+  color: var(--operator);
+}
+
+.token.function {
+  color: var(--function);
+}
+
+.token.property, .token.tag {
+  color: var(--tag);
+}
+
+.token.atrule, .token.attr-value {
+  color: var(--atr);
+}
+
+.token.boolean, .token.number {
+  color: var(--boolean);
+}
+
+.token.selector, .token.attr-name, .token.attr-value .punctuation:first-child, .token.keyword, .token.regex, .token.important {
+  color: var(--keyword);
+}
+
+.token.operator, .token.entity, .token.url, .language-css .token.string {
+  color: var(--operator);
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.namespace {
+  opacity: 0.7;
+}
+
+/* https://www.gatsbyjs.org/packages/gatsby-remark-prismjs */
+.gatsby-highlight-code-line {
+  background-color: var(--highlight);
+  display: block;
+  margin-right: -1.2em;
+  margin-left: -1.2em;
+  padding-right: 1em;
+  padding-left: 0.75em;
+  border-left: 0.25em solid var(--highlight-border);
+}
+
+/**
+ * Add back the container background-color, border-radius, padding, margin
+ * and overflow that we removed from <pre>.
+ */
+.gatsby-highlight {
+  background-color: var(--background);
+  border-radius: 0.3em;
+  margin: 0.5em 0;
+  margin-bottom: 1.0rem;
+  padding: 1em;
+  overflow: auto;
+}
+
+/**
+ * Remove the default PrismJS theme background-color, border-radius, margin,
+ * padding and overflow.
+ * 1. Make the element just wide enough to fit its content.
+ * 2. Always fill the visible space in .gatsby-highlight.
+ * 3. Adjust the position of the line numbers
+ */
+.gatsby-highlight pre[class*="language-"] {
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  overflow: initial;
+  float: left; /* 1 */
+  min-width: 100%; /* 2 */
+}
+
+.gatsby-highlight + h1,
+.gatsby-highlight + h2 {
+  margin-top: 3rem;
+}
