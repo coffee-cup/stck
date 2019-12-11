@@ -1,17 +1,6 @@
-export interface Location {
-  start: {
-    offset: number;
-    line: number;
-    column: number;
-  };
-  end: {
-    offset: number;
-    line: number;
-    column: number;
-  };
-}
+import { IFileRange } from "./parserRaw";
 
-export interface Node extends Location {
+export interface Node extends IFileRange {
   type: string;
 }
 
