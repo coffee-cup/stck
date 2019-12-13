@@ -21,3 +21,12 @@ export const push = (value: Value, stack?: Stack): [Value, Stack] => {
   const newStack = createStack();
   return push(value, newStack);
 };
+
+export const pop = (stack?: Stack): [Value, Stack?] => {
+  if (stack != null) {
+    const result = stack.pop();
+    return [result ?? 0, stack];
+  }
+
+  return [0, stack];
+};

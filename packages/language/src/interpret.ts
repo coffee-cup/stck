@@ -8,7 +8,7 @@ import {
   Identifier,
   PushPop,
 } from "./types";
-import { Stack, peek, push } from "./stack";
+import { Stack, peek, push, pop } from "./stack";
 
 export interface State {
   stacks: { [id: string]: Stack };
@@ -40,15 +40,38 @@ const visitIdentifier: VisitNode<Identifier> = (identifier, state) => {
   return peek(state.stacks[identifier.value]);
 };
 
-const visitPushPop: VisitNode<PushPop> = (pushpop, state) => {
-  const id = pushpop.right?.value;
-  if (pushpop.left && pushpop.left.type === "literal" && id != null) {
-    const [value, stack] = push(pushpop.left.value, state.stacks[id]);
+const visitPushPop: VisitNode<PushPop> = ({ left, right }, state) => {
+  const id = right?.value;
+
+  if (left && left.type === "literal" && id != null) {
+    // push literal onto right
+    const [value, stack] = push(left.value, state.stacks[id]);
     state.stacks[id] = stack;
     return value;
+  } else if (left && left.type === "identifier" && id != null) {
+    // pop value from left and push onto right
+    const [value, leftStack] = pop(state.stacks[left.value]);
+    if (leftStack != null) {
+      state.stacks[left.value] = leftStack;
+    }
+
+    const [_, rightStack] = push(value, state.stacks[id]);
+    state.stacks[id] = rightStack;
+
+    return value;
+  } else if (left && left.type === "identifier") {
+    // pop from left
+    const [value, leftStack] = pop(state.stacks[left.value]);
+    if (leftStack != null) {
+      state.stacks[left.value] = leftStack;
+    }
+
+    return value;
+  } else if (left && left.type === "literal") {
+    throw new Error("Cannot pop from literal");
   }
 
-  return 0;
+  throw new Error("fallthrough on pushpop");
 };
 
 const visitors: Visitor = {

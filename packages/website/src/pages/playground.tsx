@@ -54,9 +54,13 @@ const useStck = (code: string) => {
       const result = interpret(ast);
       return { result };
     } catch (e) {
-      const start = e.location.start;
-      const error = `Error ${start.line}:${start.column}\n\n${e.message}`;
-      return { error };
+      if (e.location && e.location.start) {
+        const start = e.location.start;
+        const error = `Error ${start.line}:${start.column}\n\n${e.message}`;
+        return { error };
+      }
+
+      return { error: e.message };
     }
   }, [code]);
 };
