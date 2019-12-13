@@ -15,7 +15,8 @@
     "noImplicitAny": false,
     "noImplicitReturns": false,
     "noUnusedLocals": false,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "strict": true
   },
   "include": ["src", "typings"]
 }

@@ -1,10 +1,20 @@
 import { IFileRange } from "./parserRaw";
 
+export type NodeType =
+  | "program"
+  | "loop"
+  | "function"
+  | "pushpop"
+  | "operator"
+  | "call"
+  | "literal"
+  | "identifier";
+
 export interface Node extends IFileRange {
-  type: string;
+  type: NodeType;
 }
 
-type Body = Expression[];
+export type Body = Expression[];
 
 export interface Program extends Node {
   type: "program";
@@ -44,7 +54,7 @@ export interface Call extends Node {
 }
 
 export interface Identifier extends Node {
-  type: "literal";
+  type: "identifier";
   value: string;
 }
 
@@ -61,3 +71,5 @@ export type Expression =
   | Call
   | PushPop
   | Operator;
+
+export type Value = string | number;

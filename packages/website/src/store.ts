@@ -18,7 +18,7 @@ const log: Middleware<StoreType> = config => (set, get, api) =>
   config(
     args => {
       set(args);
-      console.log("new state", get());
+      // console.log("new state", get());
     },
     get,
     api,

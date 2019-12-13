@@ -5,7 +5,7 @@ import { Styled } from "theme-ui";
 import Layout from "../components/Layout";
 import Editor from "../components/Editor";
 import { useStore } from "../store";
-import { parse } from "stck";
+import { parse, interpret } from "stck";
 
 const StyledPlayground = styled(Styled.div)(
   css({
@@ -47,19 +47,18 @@ const Results = styled.div(
   }),
 );
 
-const useAst = (code: string) => {
-  const ast = React.useMemo(() => {
+const useStck = (code: string) => {
+  return React.useMemo(() => {
     try {
       const ast = parse(code);
-      return { ast };
+      const result = interpret(ast);
+      return { result };
     } catch (e) {
       const start = e.location.start;
       const error = `Error ${start.line}:${start.column}\n\n${e.message}`;
       return { error };
     }
   }, [code]);
-
-  return ast;
 };
 
 const Playground = () => {
@@ -68,7 +67,7 @@ const Playground = () => {
     actions: store.actions,
   }));
 
-  const { ast, error } = useAst(code);
+  const { result, error } = useStck(code);
 
   return (
     <Layout title="Playground" description="Try Stck!">
@@ -80,7 +79,7 @@ const Playground = () => {
 
           <ResultsContainer>
             <Results>
-              {ast != null && JSON.stringify(ast, null, 2)}
+              {result != null && JSON.stringify(result, null, 2)}
               {error != null && error}
             </Results>
           </ResultsContainer>
