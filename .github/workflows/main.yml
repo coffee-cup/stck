@@ -13,5 +13,6 @@ jobs:
       with:
         node-version: '13.x'
     - run: yarn install
+    - run: yarn workspace stck generate-parser
     - run: yarn build
     - run: yarn test
