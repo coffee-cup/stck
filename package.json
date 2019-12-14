@@ -8,7 +8,8 @@
     "build": "tsc --build",
     "build:watch": "yarn build --watch",
     "test": "wsrun --exclude-missing test",
-    "lint": "wsrun --exclude-missing lint"
+    "lint": "wsrun --exclude-missing lint",
+    "clean": "wsrun --exclude-missing clean"
   },
   "workspaces": [
     "packages/*"
@@ -16,6 +17,7 @@
   "dependencies": {},
   "devDependencies": {
     "prettier": "^1.19.1",
+    "rimraf": "^3.0.0",
     "tslint": "^5.20.1",
     "typescript": "^3.7.3",
     "wsrun": "^5.1.0"

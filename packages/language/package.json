@@ -6,9 +6,10 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "generate-parser": "pegjs --plugin ../../node_modules/ts-pegjs/src/tspegjs.js -o src/parserRaw.ts src/grammar.pegjs && prettier src/parserRaw.ts --write",
-    "build": "tsc -p .",
+    "build": "yarn generate-parser && tsc -p .",
     "lint": "set -ex; tsc --noEmit -p .; tslint --project .",
-    "test": "yarn generate-parser && jest"
+    "test": "yarn generate-parser && jest",
+    "clean": "rimraf lib src/parserRaw.ts *.tsbuildinfo"
   },
   "dependencies": {
     "lodash": "^4.17.15",

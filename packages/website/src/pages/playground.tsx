@@ -96,6 +96,8 @@ const Playground = () => {
 
   const { result, error } = useStck(code);
 
+  const renderEditor = typeof window !== "undefined";
+
   return (
     <Layout title="Playground" description="Try Stck!">
       <StyledPlayground className="playground">

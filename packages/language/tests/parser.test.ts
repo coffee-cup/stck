@@ -1,15 +1,5 @@
 import { parse } from "../src/parser";
-import {
-  Program,
-  Node,
-  Call,
-  Identifier,
-  Literal,
-  Loop,
-  Function,
-  PushPop,
-  Operator,
-} from "../src/types";
+import { FunctionExpr, Program, Node, Call, Loop, PushPop } from "../src/types";
 
 const firstNode = (program: Program): Node => program.body[0];
 
@@ -120,7 +110,7 @@ a+b
   a+b
 }
 `),
-      ) as Function;
+      ) as FunctionExpr;
 
       expect(func.type).toBe("function");
       expect(func.name).toBe("foo");
@@ -128,7 +118,7 @@ a+b
     }
 
     {
-      const func = firstNode(parse(`{:foo}`)) as Function;
+      const func = firstNode(parse(`{:foo}`)) as FunctionExpr;
       expect(func).toMatchSnapshot();
     }
   });

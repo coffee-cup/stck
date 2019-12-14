@@ -11,7 +11,8 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "build": "gatsby build",
-    "tsc": "tsc -p . --noEmit --watch"
+    "tsc": "tsc -p . --noEmit --watch",
+    "clean": "rimraf public lib *.tsbuildinfo"
   },
   "dependencies": {
     "stck": "0.0.1",

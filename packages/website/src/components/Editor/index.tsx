@@ -1,15 +1,21 @@
 import styled from "@emotion/styled";
 import css from "@styled-system/css";
 import * as React from "react";
-import { UnControlled as CodeMirror } from "react-codemirror2";
 
-import "codemirror/lib/codemirror.css";
-import "./editor-theme.css";
+let CodeMirror = null;
+if (typeof window !== "undefined") {
+  // tslint:disable:no-var-requires
+  CodeMirror = require("react-codemirror2").UnControlled;
 
-import "codemirror/addon/comment/comment";
-import "codemirror/addon/display/placeholder";
-import "codemirror/addon/edit/closebrackets";
-import "codemirror/addon/edit/matchbrackets";
+  require("codemirror/lib/codemirror.css");
+  require("./editor-theme.css");
+
+  require("codemirror/addon/comment/comment");
+  require("codemirror/addon/display/placeholder");
+  require("codemirror/addon/edit/closebrackets");
+  require("codemirror/addon/edit/matchbrackets");
+  // tslint:enable
+}
 
 export interface Props {
   value: string;
@@ -36,14 +42,16 @@ const codemirrorConfig = {
 
 const Editor: React.FC<Props> = props => (
   <EditorContainer>
-    <CodeMirror
-      value={props.value}
-      detach={true}
-      options={codemirrorConfig}
-      onChange={(_editor, _data, value) => {
-        props.onChange(value);
-      }}
-    />
+    {CodeMirror != null && (
+      <CodeMirror
+        value={props.value}
+        detach={true}
+        options={codemirrorConfig}
+        onChange={(_editor, _data, value) => {
+          props.onChange(value);
+        }}
+      />
+    )}
   </EditorContainer>
 );
 
