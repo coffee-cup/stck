@@ -1,6 +1,6 @@
 import { system } from "@theme-ui/presets";
-import { Theme } from "theme-ui";
 import nightOwl from "@theme-ui/prism/presets/night-owl-light.json";
+import { Theme } from "theme-ui";
 
 const heading = {
   fontFamily: "heading",

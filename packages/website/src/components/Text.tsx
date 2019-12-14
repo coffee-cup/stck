@@ -1,8 +1,8 @@
-import * as React from "react";
 import styled from "@emotion/styled";
-import { makeAnchor } from "../utils";
-import { Styled } from "theme-ui";
 import css from "@styled-system/css";
+import * as React from "react";
+import { Styled } from "theme-ui";
+import { makeAnchor } from "../utils";
 
 export const H1: React.FC = props => (
   <h1 id={makeAnchor(props.children)} {...props} />

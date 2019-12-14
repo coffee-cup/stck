@@ -1,8 +1,8 @@
+import styled from "@emotion/styled";
+import css from "@styled-system/css";
 import { Link as GLink } from "gatsby";
 import * as React from "react";
 import { Styled } from "theme-ui";
-import styled from "@emotion/styled";
-import css from "@styled-system/css";
 import theme from "../gatsby-plugin-theme-ui";
 
 const StyledLink = styled(GLink)<{ empty: number }>(props =>

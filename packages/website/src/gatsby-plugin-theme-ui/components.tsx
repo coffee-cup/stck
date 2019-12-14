@@ -1,12 +1,13 @@
-import * as React from "react";
 import ThemeUIPrism from "@theme-ui/prism";
-import Link from "../components/Link";
 import PrismCore from "prism-react-renderer/prism";
+import * as React from "react";
+import Link from "../components/Link";
 
 ((typeof global !== "undefined" ? global : window) as any).Prism = PrismCore;
-// tslint:disable-next-line:no-var-requires
+// tslint:disable:no-var-requires
 require("prismjs/components/prism-haskell");
 require("prismjs/components/prism-tsx");
+// tslint:enable
 
 export default {
   pre: props => props.children,

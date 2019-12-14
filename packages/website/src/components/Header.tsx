@@ -1,8 +1,8 @@
-import * as React from "react";
 import styled from "@emotion/styled";
 import css from "@styled-system/css";
-import Link from "./Link";
+import * as React from "react";
 import Container from "./Container";
+import Link from "./Link";
 
 const StyledHeader = styled.header(
   css({

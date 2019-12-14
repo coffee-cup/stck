@@ -27,7 +27,7 @@ export interface Loop extends Node {
   body: Body;
 }
 
-export interface Function extends Node {
+export interface FunctionExpr extends Node {
   type: "function";
   name: string;
   body: Body;
@@ -65,7 +65,7 @@ export interface Literal extends Node {
 
 export type Expression =
   | Loop
-  | Function
+  | FunctionExpr
   | Literal
   | Identifier
   | Call

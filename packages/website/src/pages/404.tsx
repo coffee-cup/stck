@@ -1,9 +1,9 @@
+import styled from "@emotion/styled";
+import css from "@styled-system/css";
 import * as React from "react";
 import Layout from "../components/Layout";
-import SEO from "../components/SEO";
-import css from "@styled-system/css";
-import styled from "@emotion/styled";
 import Link from "../components/Link";
+import SEO from "../components/SEO";
 
 const Centered = styled.div(
   css({

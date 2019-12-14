@@ -1,14 +1,14 @@
+import { peek, pop, push, Stack } from "./stack";
 import {
-  Value,
+  Expression,
+  Identifier,
   Literal,
   Node,
   NodeType,
-  Expression,
   Program,
-  Identifier,
   PushPop,
+  Value,
 } from "./types";
-import { Stack, peek, push, pop } from "./stack";
 
 export interface State {
   stacks: { [id: string]: Stack };
@@ -91,9 +91,9 @@ const visit = (node: Node, state: State): Value => {
   return 0;
 };
 
-export const interpret = (program: Program): { [id: string]: Stack } => {
+export const interpret = (program: Program): State => {
   const state = createEmptyState();
 
   visit(program, state);
-  return state.stacks;
+  return state;
 };

@@ -1,8 +1,8 @@
-import * as React from "react";
 import styled from "@emotion/styled";
 import css from "@styled-system/css";
-import Section from "./Section";
+import * as React from "react";
 import Container from "./Container";
+import Section from "./Section";
 
 const StyledFooter = styled.footer(
   css({

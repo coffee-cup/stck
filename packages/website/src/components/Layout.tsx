@@ -1,8 +1,8 @@
+import styled from "@emotion/styled";
 import { MDXProvider } from "@mdx-js/react";
+import css from "@styled-system/css";
 import * as React from "react";
 import { Styled } from "theme-ui";
-import styled from "@emotion/styled";
-import css from "@styled-system/css";
 import Footer from "./Footer";
 import Header from "./Header";
 import SEO from "./SEO";

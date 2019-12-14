@@ -1,11 +1,12 @@
-import * as React from "react";
 import styled from "@emotion/styled";
 import css from "@styled-system/css";
+import * as React from "react";
+import { interpret, parse, State as IState } from "stck";
 import { Styled } from "theme-ui";
-import Layout from "../components/Layout";
 import Editor from "../components/Editor";
+import Layout from "../components/Layout";
+import Stack from "../components/Stack";
 import { useStore } from "../store";
-import { parse, interpret } from "stck";
 
 const StyledPlayground = styled(Styled.div)(
   css({
@@ -47,6 +48,28 @@ const Results = styled.div(
   }),
 );
 
+const Stacks = styled.div(
+  css({
+    display: "flex",
+    overflowX: "auto",
+  }),
+);
+
+const State: React.FC<{ state: IState }> = props => {
+  const stacks = props.state.stacks;
+  const filtered = Object.keys(stacks).filter(
+    key => stacks[key] != null && stacks[key].length > 0,
+  );
+
+  return (
+    <Stacks>
+      {filtered.map(name => (
+        <Stack key={name} name={name} stack={stacks[name]} />
+      ))}
+    </Stacks>
+  );
+};
+
 const useStck = (code: string) => {
   return React.useMemo(() => {
     try {
@@ -83,7 +106,7 @@ const Playground = () => {
 
           <ResultsContainer>
             <Results>
-              {result != null && JSON.stringify(result, null, 2)}
+              {result != null && <State state={result} />}
               {error != null && error}
             </Results>
           </ResultsContainer>

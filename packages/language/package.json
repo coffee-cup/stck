@@ -7,6 +7,7 @@
     "start": "ts-node src/index.ts",
     "generate-parser": "pegjs --plugin ../../node_modules/ts-pegjs/src/tspegjs.js -o src/parserRaw.ts src/grammar.pegjs && prettier src/parserRaw.ts --write",
     "build": "tsc -p .",
+    "lint": "set -ex; tsc --noEmit -p .; tslint --project .",
     "test": "yarn generate-parser && jest"
   },
   "dependencies": {
