@@ -6,7 +6,8 @@ export type NodeType =
   | "operator"
   | "call"
   | "literal"
-  | "identifier";
+  | "identifier"
+  | "comment";
 
 export interface Position {
   offset: number;
@@ -72,6 +73,11 @@ export interface Literal extends Node {
   value: any;
 }
 
+export interface Comment extends Node {
+  type: "comment";
+  value: string;
+}
+
 export type Expression =
   | Loop
   | FunctionExpr
@@ -79,6 +85,7 @@ export type Expression =
   | Identifier
   | Call
   | PushPop
-  | Operator;
+  | Operator
+  | Comment;
 
 export type Value = string | number;

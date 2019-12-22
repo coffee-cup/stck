@@ -18,6 +18,7 @@ expr
   / call
   / pushpop
   / operator
+  / comment
 
 pushpop "pushpop"
   = left:(literal/identifier)? _ ">" _ right:identifier?
@@ -68,6 +69,9 @@ stringChars
 number "number"
   = minus? int frac? 
   { return makeNode("literal", {value: parseFloat(text())}) }
+
+comment
+  = "#" p:([^\n\r]*) _ {return makeNode("comment", {value: p.join('').trim()})}
 
 decimal_point
   = "."
