@@ -2,7 +2,7 @@
   const makeNode = (type, value) => ({
     type,
     ...value,
-    //...location()
+    ...location()
   })
 }
 
@@ -24,7 +24,7 @@ pushpop "pushpop"
   { return makeNode("pushpop", { left, right  } ) }  
   
 operator "operator"
-  = left:identifier _ op:OP _ right:(literal/identifier)?
+  = left:identifier _ op:OP _ right:(literal/identifier)
   { return makeNode("operator", { left, op, right }) }
   
 OP = "+" / "-" / "*" / "/"

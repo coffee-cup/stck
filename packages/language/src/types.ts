@@ -1,5 +1,3 @@
-import { IFileRange } from "./parserRaw";
-
 export type NodeType =
   | "program"
   | "loop"
@@ -10,7 +8,18 @@ export type NodeType =
   | "literal"
   | "identifier";
 
-export interface Node extends IFileRange {
+export interface Position {
+  offset: number;
+  line: number;
+  column: number;
+}
+
+export interface Range {
+  start: Position;
+  end: Position;
+}
+
+export interface Node extends Range {
   type: NodeType;
 }
 
@@ -39,13 +48,13 @@ export interface PushPop extends Node {
   right?: Identifier;
 }
 
-export type OP = "+" | "_" | "*" | "/";
+export type OP = "+" | "-" | "*" | "/";
 
 export interface Operator extends Node {
   type: "operator";
-  op: string;
+  op: OP;
   left: Identifier;
-  right?: Identifier;
+  right: Identifier | Literal;
 }
 
 export interface Call extends Node {
