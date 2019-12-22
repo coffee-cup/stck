@@ -4,6 +4,7 @@ import { Range } from "./types";
 export class EvalError extends Error {
   constructor(message: string, range: Range) {
     super(message);
+
     (this as any).location = range;
   }
 }

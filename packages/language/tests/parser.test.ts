@@ -1,4 +1,4 @@
-import { parse } from "../src/parser";
+import { parse } from "../src";
 import {
   Comment,
   FunctionExpr,
@@ -22,11 +22,11 @@ a*c
 hello/world
 
 1>a
-a>b
 a>
+a>b
 
 (a
-  a > b
+  a>b
 )
 
 {:foo
@@ -58,7 +58,7 @@ a>
 
   it("pushpop", () => {
     {
-      const pushpop = firstNode(parse("a > b")) as PushPop;
+      const pushpop = firstNode(parse("a>b")) as PushPop;
       expect(pushpop.type).toBe("pushpop");
 
       expect(pushpop.left!.type).toBe("identifier");
@@ -69,7 +69,7 @@ a>
     }
 
     {
-      const pushpop = firstNode(parse("1 > b")) as PushPop;
+      const pushpop = firstNode(parse("1>b")) as PushPop;
       expect(pushpop.type).toBe("pushpop");
 
       expect(pushpop.left!.type).toBe("literal");

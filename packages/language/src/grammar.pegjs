@@ -21,11 +21,11 @@ expr
   / comment
 
 pushpop "pushpop"
-  = left:(literal/identifier)? _ ">" _ right:identifier?
+  = left:(literal/identifier)? ">" right:identifier?
   { return makeNode("pushpop", { left, right  } ) }  
   
 operator "operator"
-  = left:identifier _ op:OP _ right:(literal/identifier)
+  = left:identifier op:OP right:(literal/identifier)?
   { return makeNode("operator", { left, op, right }) }
   
 OP = "+" / "-" / "*" / "/"
@@ -70,7 +70,7 @@ number "number"
   = minus? int frac? 
   { return makeNode("literal", {value: parseFloat(text())}) }
 
-comment
+comment "comment"
   = "#" p:([^\n\r]*) _ {return makeNode("comment", {value: p.join('').trim()})}
 
 decimal_point

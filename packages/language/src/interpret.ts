@@ -76,7 +76,8 @@ const visitIdentifier: VisitNode<Identifier> = (identifier, state) => {
   return peek(identifier.value, state);
 };
 
-const visitPushPop: VisitNode<PushPop> = ({ left, right }, state) => {
+const visitPushPop: VisitNode<PushPop> = (node, state) => {
+  const { left, right } = node;
   const id = right?.value;
 
   if (left && left.type === "literal" && id != null) {
@@ -94,28 +95,12 @@ const visitPushPop: VisitNode<PushPop> = ({ left, right }, state) => {
     const value = pop(left.value, state);
     return value;
   } else if (left && left.type === "literal") {
-    throw new Error("Cannot pop from literal");
+    throw new EvalError("Cannot pop from literal", node);
+  } else if (left == null) {
+    throw new EvalError("left side of pushpop cannot be empty", node);
   }
 
   throw new Error("fallthrough on pushpop");
-};
-
-// assume no errors here
-const operations: {
-  [key in OP]: (...args: any) => Value;
-} = {
-  "+": (val1, val2) => val1 + val2,
-  "-": (val1, val2) => val1 - val2,
-  "*": (val1, val2) => {
-    if (isString(val2)) {
-      return repeat(val2, val1);
-    }
-
-    return val1 * val2;
-  },
-  "/": (val1, val2) => {
-    return val1 / val2;
-  },
 };
 
 const visitOperator: VisitNode<Operator> = (node, state) => {
@@ -123,7 +108,11 @@ const visitOperator: VisitNode<Operator> = (node, state) => {
 
   const val1: any = pop(left.value, state);
   const val2: any =
-    right.type === "literal" ? right.value : pop(right.value, state);
+    right == null
+      ? pop(left.value, state)
+      : right.type === "literal"
+      ? right.value
+      : pop(right.value, state);
 
   let result: Value = 0;
 
