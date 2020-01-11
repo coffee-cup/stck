@@ -1,5 +1,6 @@
-export interface IProject {
-  name: string;
-  link: string;
-  desc: string;
+import { Position } from "stck";
+
+export interface Error {
+  message: string;
+  position?: Position;
 }

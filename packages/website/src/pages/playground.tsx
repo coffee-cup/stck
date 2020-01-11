@@ -7,6 +7,7 @@ import Editor from "../components/Editor";
 import Layout from "../components/Layout";
 import Stack from "../components/Stack";
 import { useStore } from "../store";
+import { Error } from "../types";
 
 const StyledPlayground = styled(Styled.div)(
   css({
@@ -70,31 +71,13 @@ const State: React.FC<{ state: IState }> = props => {
   );
 };
 
-const useStck = (code: string) => {
-  return React.useMemo(() => {
-    try {
-      const ast = parse(code);
-      const result = interpret(ast);
-      return { result };
-    } catch (e) {
-      if (e.location && e.location.start) {
-        const start = e.location.start;
-        const error = `Error ${start.line}:${start.column}\n\n${e.message}`;
-        return { error };
-      }
-
-      return { error: e.message };
-    }
-  }, [code]);
-};
+const formatError = (error: Error): string =>
+  error.position != null
+    ? `${error.position.line}:${error.position.column} ${error.message}`
+    : error.message;
 
 const Playground = () => {
-  const { code, actions } = useStore(store => ({
-    code: store.code,
-    actions: store.actions,
-  }));
-
-  const { result, error } = useStck(code);
+  const { code, result, error, actions } = useStore();
 
   const renderEditor = typeof window !== "undefined";
 
@@ -109,7 +92,7 @@ const Playground = () => {
           <ResultsContainer>
             <Results>
               {result != null && <State state={result} />}
-              {error != null && error}
+              {error != null && formatError(error)}
             </Results>
           </ResultsContainer>
         </Split>

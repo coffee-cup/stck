@@ -1,9 +1,9 @@
 import create, { GetState, SetState, StateCreator, StoreApi } from "zustand";
 import ExecuteWorker from "workerize-loader!./execute.worker";
+import { State as StckState } from "stck";
+import { Error } from "./types";
 
 const executeWorker = typeof window === "object" && new ExecuteWorker();
-
-// console.log(executeWorker);
 
 if (executeWorker) {
   console.log(executeWorker);
@@ -12,6 +12,8 @@ if (executeWorker) {
 
 export interface State {
   code: string;
+  result: StckState | null;
+  error: Error | null;
 }
 
 export interface Actions {
@@ -50,6 +52,8 @@ const saveOptions: Middleware<StoreType> = config => (set, get, api) =>
 const getInititalState = (): State => {
   const initialState: State = {
     code: "",
+    error: null,
+    result: null,
   };
 
   const item =
@@ -70,13 +74,25 @@ const getInititalState = (): State => {
   return initialState;
 };
 
-export const [useStore] = create<StoreType>(
+let worker: any = null;
+
+export const [useStore, api] = create<StoreType>(
   log(
     saveOptions((set, _get) => ({
       ...getInititalState(),
       actions: {
-        onCodeChange: code => {
+        onCodeChange: async code => {
+          if (worker != null) {
+            worker.terminate();
+            worker = null;
+          }
+
           set({ code });
+
+          worker = ExecuteWorker();
+          const { result, error } = await worker.compute(code);
+
+          set({ result, error });
         },
       },
     })),
