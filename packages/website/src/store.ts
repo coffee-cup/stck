@@ -1,4 +1,14 @@
 import create, { GetState, SetState, StateCreator, StoreApi } from "zustand";
+import ExecuteWorker from "workerize-loader!./execute.worker";
+
+const executeWorker = typeof window === "object" && new ExecuteWorker();
+
+// console.log(executeWorker);
+
+if (executeWorker) {
+  console.log(executeWorker);
+  executeWorker.compute();
+}
 
 export interface State {
   code: string;

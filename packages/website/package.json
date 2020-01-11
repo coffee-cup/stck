@@ -12,10 +12,9 @@
     "start": "npm run develop",
     "build": "gatsby build",
     "tsc": "tsc -p . --noEmit --watch",
-    "clean": "rimraf public lib *.tsbuildinfo"
+    "clean": "rimraf public lib *.tsbuildinfo .cache"
   },
   "dependencies": {
-    "stck": "0.0.1",
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.23",
     "@mdx-js/mdx": "^1.0.10",
@@ -36,6 +35,7 @@
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.0",
     "react-markdown": "^4.2.2",
+    "stck": "0.0.1",
     "theme-ui": "^0.2.49",
     "zustand": "^2.2.1"
   },
@@ -78,6 +78,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
     "tslint-react": "^4.0.0",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.3",
+    "workerize-loader": "^1.1.0"
   }
 }
