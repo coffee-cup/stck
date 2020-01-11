@@ -22,18 +22,16 @@ export interface State {
   ftable: { [name: string]: FunctionExpr };
 }
 
-export type VisitNode<T = Node> = (node: T, state: State) => Value;
+export type VisitNode<T = Node> = (node: T, state: State) => void;
 
 type Visitor = {
   [Type in Node["type"]]?: VisitNode<Extract<Node, { type: Type }>>;
 };
 
-const createEmptyState = (): State => {
-  return {
-    stacks: {},
-    ftable: {},
-  };
-};
+const createEmptyState = (): State => ({
+  stacks: {},
+  ftable: {},
+});
 
 const peek = (id: string, { stacks }: State): Value => {
   const stack = stacks[id];
@@ -66,18 +64,8 @@ const push = (value: Value, id: string, { stacks }: State) => {
 const isNumber = (v: Value): boolean => typeof v === "number";
 const isString = (v: Value): boolean => typeof v === "string";
 
-const visitProgram: VisitNode<Program> = (program, state): Value => {
-  const results = program.body.map(node => visit(node, state));
-
-  return results.length > 0 ? results[0] : 0;
-};
-
-const visitLiteral: VisitNode<Literal> = literal => {
-  return literal.value;
-};
-
-const visitIdentifier: VisitNode<Identifier> = (identifier, state) => {
-  return peek(identifier.value, state);
+const visitProgram: VisitNode<Program> = (program, state) => {
+  program.body.forEach(node => visit(node, state));
 };
 
 const visitPushPop: VisitNode<PushPop> = (node, state) => {
@@ -87,24 +75,18 @@ const visitPushPop: VisitNode<PushPop> = (node, state) => {
   if (left && left.type === "literal" && id != null) {
     // push literal onto right
     push(left.value, id, state);
-    return left.value;
   } else if (left && left.type === "identifier" && id != null) {
     // pop value from left and push onto right
     const value = pop(left.value, state);
     push(value, id, state);
-
-    return value;
   } else if (left && left.type === "identifier") {
     // pop from left
-    const value = pop(left.value, state);
-    return value;
+    pop(left.value, state);
   } else if (left && left.type === "literal") {
     throw new EvalError("Cannot pop from literal", node);
   } else if (left == null) {
     throw new EvalError("left side of pushpop cannot be empty", node);
   }
-
-  throw new Error("fallthrough on pushpop");
 };
 
 const visitOperator: VisitNode<Operator> = (node, state) => {
@@ -150,12 +132,10 @@ const visitOperator: VisitNode<Operator> = (node, state) => {
   }
 
   push(result, left.value, state);
-  return result;
 };
 
 const visitFunction: VisitNode<FunctionExpr> = (node, state) => {
-  const results = node.body.map(node => visit(node, state));
-  return results.length > 0 ? results[0] : 0;
+  node.body.forEach(node => visit(node, state));
 };
 
 const visitCall: VisitNode<Call> = (node, state) => {
@@ -165,7 +145,7 @@ const visitCall: VisitNode<Call> = (node, state) => {
     throw new EvalError(`Function ${node.name} is not defined`, node);
   }
 
-  return visitFunction(fn, state);
+  visitFunction(fn, state);
 };
 
 const visitors: Visitor = {
@@ -173,18 +153,14 @@ const visitors: Visitor = {
   pushpop: visitPushPop,
   operator: visitOperator,
   call: visitCall,
-  literal: visitLiteral,
-  identifier: visitIdentifier,
 };
 
-const visit = (node: Node, state: State): Value => {
+const visit: VisitNode<Node> = (node: Node, state: State) => {
   const fn = visitors[node.type] as VisitNode<Node>;
 
   if (fn != null) {
-    return fn(node as any, state);
+    fn(node as any, state);
   }
-
-  return 0;
 };
 
 const createFTable = (program: Program, state: State) => {
