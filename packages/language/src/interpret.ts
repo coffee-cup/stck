@@ -5,18 +5,21 @@ import {
   Identifier,
   Literal,
   Node,
+  Call,
   NodeType,
   OP,
   Operator,
   Program,
   PushPop,
   Value,
+  FunctionExpr,
 } from "./types";
 
 export type Stack = Value[];
 
 export interface State {
   stacks: { [id: string]: Stack };
+  ftable: { [name: string]: FunctionExpr };
 }
 
 export type VisitNode<T = Node> = (node: T, state: State) => Value;
@@ -28,6 +31,7 @@ type Visitor = {
 const createEmptyState = (): State => {
   return {
     stacks: {},
+    ftable: {},
   };
 };
 
@@ -149,10 +153,26 @@ const visitOperator: VisitNode<Operator> = (node, state) => {
   return result;
 };
 
+const visitFunction: VisitNode<FunctionExpr> = (node, state) => {
+  const results = node.body.map(node => visit(node, state));
+  return results.length > 0 ? results[0] : 0;
+};
+
+const visitCall: VisitNode<Call> = (node, state) => {
+  const fn = state.ftable[node.name];
+
+  if (fn == null) {
+    throw new EvalError(`Function ${node.name} is not defined`, node);
+  }
+
+  return visitFunction(fn, state);
+};
+
 const visitors: Visitor = {
   program: visitProgram,
   pushpop: visitPushPop,
   operator: visitOperator,
+  call: visitCall,
   literal: visitLiteral,
   identifier: visitIdentifier,
 };
@@ -167,8 +187,22 @@ const visit = (node: Node, state: State): Value => {
   return 0;
 };
 
+const createFTable = (program: Program, state: State) => {
+  program.body.forEach(expr => {
+    if (expr.type === "function") {
+      if (state.ftable[expr.name] != null) {
+        throw new EvalError(`Function ${expr.name} cannot be redefined`, expr);
+      }
+
+      state.ftable[expr.name] = expr;
+    }
+  });
+};
+
 export const interpret = (program: Program): State => {
   const state = createEmptyState();
+
+  createFTable(program, state);
 
   visit(program, state);
   return state;

@@ -35,4 +35,16 @@ describe("interpret", () => {
     expect(run("2>a 4>a a/ a>o")).toBe(2);
     expect(run("10>a a/2 a>o")).toBe(5);
   });
+
+  it("functions", () => {
+    expect(
+      run(`
+{:foo
+1>o
+}
+
+:foo
+`),
+    ).toBe(1);
+  });
 });
