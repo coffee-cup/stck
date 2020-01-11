@@ -5,6 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "start": "yarn workspace stck-website start",
     "build": "tsc --build",
     "build:watch": "yarn build --watch",
     "build:all": "yarn workspace stck build; yarn; yarn build; yarn workspace stck-website build",
