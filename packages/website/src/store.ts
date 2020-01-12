@@ -3,13 +3,6 @@ import ExecuteWorker from "workerize-loader!./execute.worker";
 import { State as StckState } from "stck";
 import { Error } from "./types";
 
-const executeWorker = typeof window === "object" && new ExecuteWorker();
-
-if (executeWorker) {
-  console.log(executeWorker);
-  executeWorker.compute();
-}
-
 export interface State {
   code: string;
   result: StckState | null;
@@ -89,10 +82,13 @@ export const [useStore, api] = create<StoreType>(
 
           set({ code });
 
-          worker = ExecuteWorker();
-          const { result, error } = await worker.compute(code);
+          worker = new ExecuteWorker();
 
+          const { result, error } = await worker.compute(code);
           set({ result, error });
+
+          worker.terminate();
+          worker = null;
         },
       },
     })),
