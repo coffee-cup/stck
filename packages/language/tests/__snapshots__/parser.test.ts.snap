@@ -703,3 +703,35 @@ Object {
   "type": "operator",
 }
 `;
+
+exports[`parser operators 3`] = `
+Object {
+  "end": Object {
+    "column": 3,
+    "line": 1,
+    "offset": 2,
+  },
+  "left": Object {
+    "end": Object {
+      "column": 2,
+      "line": 1,
+      "offset": 1,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+    "type": "identifier",
+    "value": "a",
+  },
+  "op": "?",
+  "right": null,
+  "start": Object {
+    "column": 1,
+    "line": 1,
+    "offset": 0,
+  },
+  "type": "operator",
+}
+`;

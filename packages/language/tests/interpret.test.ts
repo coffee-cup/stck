@@ -1,50 +1,52 @@
-import { interpret, parse } from "../src";
+import { interpret, parse, Value } from "../";
 
-const run = (code: string) => {
+const run = (code: string): Value[] => {
   const program = parse(code);
   const state = interpret(program);
 
-  const output = (state.stacks.o || [])[0];
+  const output = state.stacks.o || [];
   return output;
 };
 
 describe("interpret", () => {
   it("comments do nothing", () => {
-    expect(run(`# hello`)).toBeUndefined();
+    expect(run(`# hello`)).toHaveLength(0);
   });
 
   it("pushpop", () => {
-    expect(run("1>o")).toBe(1);
-    expect(run("2>a a>o")).toBe(2);
-    expect(run("3>a 4>a a> a>o")).toBe(3);
+    expect(run("1>o")).toEqual([1]);
+    expect(run("2>a a>o")).toEqual([2]);
+    expect(run("3>a 4>a a> a>o")).toEqual([3]);
   });
 
   it("operators", () => {
-    expect(run("1>a 2>a a+ a>o")).toBe(3);
-    expect(run("1>a 4>b a+b a>o")).toBe(5);
-    expect(run("9>a a+3 a>o")).toBe(12);
-    expect(run(`"world">a "hello ">a a+ a>o`)).toBe("hello world");
+    expect(run("1>a 2>a a+ a>o")).toEqual([3]);
+    expect(run("1>a 4>b a+b a>o")).toEqual([5]);
+    expect(run("9>a a+3 a>o")).toEqual([12]);
+    expect(run(`"world">a "hello ">a a+ a>o`)).toEqual(["hello world"]);
 
-    expect(run("3>a 2>a a- a>o")).toBe(-1);
-    expect(run("3>a a-10 a>o")).toBe(-7);
+    expect(run("3>a 2>a a- a>o")).toEqual([-1]);
+    expect(run("3>a a-10 a>o")).toEqual([-7]);
 
-    expect(run(`4>a 2>a a* a>o`)).toBe(8);
-    expect(run(`4>a a*3 a>o`)).toBe(12);
-    expect(run(`4>a "ab">a a* a>o`)).toBe("abababab");
+    expect(run(`4>a 2>a a* a>o`)).toEqual([8]);
+    expect(run(`4>a a*3 a>o`)).toEqual([12]);
+    expect(run(`4>a "ab">a a* a>o`)).toEqual(["abababab"]);
 
-    expect(run("2>a 4>a a/ a>o")).toBe(2);
-    expect(run("10>a a/2 a>o")).toBe(5);
+    expect(run("2>a 4>a a/ a>o")).toEqual([2]);
+    expect(run("10>a a/2 a>o")).toEqual([5]);
+
+    expect(run("1>a 2>a 0>a a?")).toEqual([]);
+  });
+
+  it("loops", () => {
+    expect(run("5>n (n n-1 1>o n?)")).toEqual([1, 1, 1, 1, 1]);
   });
 
   it("functions", () => {
-    expect(
-      run(`
-{:foo
-1>o
-}
-
-:foo
-`),
-    ).toBe(1);
+    expect(run(`{:foo 1>o} :foo`)).toEqual([1]);
+    expect(run(`{:foo 1>a a+1 a>o} :foo`)).toEqual([2]);
+    expect(run(`{:foo 1>a a-2 a>o} :foo`)).toEqual([-1]);
   });
+
+  it("loops", () => {});
 });

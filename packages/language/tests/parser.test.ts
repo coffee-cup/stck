@@ -54,6 +54,8 @@ a>b
   it("operators", () => {
     expect(firstNode(parse("a+b"))).toMatchSnapshot();
     expect(firstNode(parse("a+2"))).toMatchSnapshot();
+
+    expect(firstNode(parse("a?"))).toMatchSnapshot();
   });
 
   it("pushpop", () => {

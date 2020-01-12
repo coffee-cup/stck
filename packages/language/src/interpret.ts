@@ -107,7 +107,7 @@ const visitOperator: VisitNode<Operator> = (node, state) => {
 
     const val = peek(left.value, state);
     if (val === 0) {
-      pop(left.value, state);
+      state.stacks[left.value] = [];
     }
   } else {
     // multiple operands
