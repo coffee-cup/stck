@@ -49,7 +49,7 @@ export interface PushPop extends Node {
   right?: Identifier;
 }
 
-export type OP = "+" | "-" | "*" | "/";
+export type OP = "+" | "-" | "*" | "/" | "?";
 
 export interface Operator extends Node {
   type: "operator";

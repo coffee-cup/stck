@@ -28,7 +28,7 @@ operator "operator"
   = left:identifier op:OP right:(literal/identifier)?
   { return makeNode("operator", { left, op, right }) }
   
-OP = "+" / "-" / "*" / "/"
+OP = "+" / "-" / "*" / "/" / "?"
 
 function "function"
  = "{" _ name:fnname _ body:body _ "}"

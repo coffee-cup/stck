@@ -12,6 +12,7 @@ import {
   Program,
   PushPop,
   Value,
+  Loop,
   FunctionExpr,
 } from "./types";
 
@@ -32,6 +33,9 @@ const createEmptyState = (): State => ({
   stacks: {},
   ftable: {},
 });
+
+const isStackEmpty = (id: string, { stacks }: State): boolean =>
+  stacks[id] == null || stacks[id].length === 0;
 
 const peek = (id: string, { stacks }: State): Value => {
   const stack = stacks[id];
@@ -92,46 +96,62 @@ const visitPushPop: VisitNode<PushPop> = (node, state) => {
 const visitOperator: VisitNode<Operator> = (node, state) => {
   const { op, left, right } = node;
 
-  const val1: any = pop(left.value, state);
-  const val2: any =
-    right == null
-      ? pop(left.value, state)
-      : right.type === "literal"
-      ? right.value
-      : pop(right.value, state);
-
-  let result: Value = 0;
-
-  if (op === "+") {
-    result = val1 + val2;
-  } else if (op === "-") {
-    if (isString(val1)) {
-      throw new EvalError(typeError("subtraction", "number", val1), left);
-    } else if (isString(val2)) {
-      throw new EvalError(typeError("subtraction", "number", val2), right);
+  if (op === "?") {
+    // single operand
+    if (right != null) {
+      throw new EvalError(
+        `${op} operator requires only leftmost operand`,
+        node,
+      );
     }
 
-    result = val1 - val2;
-  } else if (op === "*") {
-    if (isString(val2)) {
-      throw new EvalError(typeError("multiplication", "number", val2), right);
+    const val = peek(left.value, state);
+    if (val === 0) {
+      pop(left.value, state);
     }
-
-    result =
-      isNumber(val1) && isNumber(val2) ? val1 * val2 : repeat(val1, val2);
-  } else if (op === "/") {
-    if (isString(val1)) {
-      throw new EvalError(typeError("division", "number", val1), left);
-    } else if (isString(val2)) {
-      throw new EvalError(typeError("division", "number", val2), right);
-    }
-
-    result = val1 / val2;
   } else {
-    throw new EvalError(`Operator ${op} not recognized`, node);
-  }
+    // multiple operands
+    const val1: any = pop(left.value, state);
+    const val2: any =
+      right == null
+        ? pop(left.value, state)
+        : right.type === "literal"
+        ? right.value
+        : pop(right.value, state);
 
-  push(result, left.value, state);
+    let result: Value = 0;
+
+    if (op === "+") {
+      result = val1 + val2;
+    } else if (op === "-") {
+      if (isString(val1)) {
+        throw new EvalError(typeError("subtraction", "number", val1), left);
+      } else if (isString(val2)) {
+        throw new EvalError(typeError("subtraction", "number", val2), right);
+      }
+
+      result = val1 - val2;
+    } else if (op === "*") {
+      if (isString(val2)) {
+        throw new EvalError(typeError("multiplication", "number", val2), right);
+      }
+
+      result =
+        isNumber(val1) && isNumber(val2) ? val1 * val2 : repeat(val1, val2);
+    } else if (op === "/") {
+      if (isString(val1)) {
+        throw new EvalError(typeError("division", "number", val1), left);
+      } else if (isString(val2)) {
+        throw new EvalError(typeError("division", "number", val2), right);
+      }
+
+      result = val1 / val2;
+    } else {
+      throw new EvalError(`Operator ${op} not recognized`, node);
+    }
+
+    push(result, left.value, state);
+  }
 };
 
 const visitFunction: VisitNode<FunctionExpr> = (node, state) => {
@@ -148,11 +168,18 @@ const visitCall: VisitNode<Call> = (node, state) => {
   visitFunction(fn, state);
 };
 
+const visitLoop: VisitNode<Loop> = (node, state) => {
+  while (!isStackEmpty(node.stack, state)) {
+    node.body.forEach(n => visit(n, state));
+  }
+};
+
 const visitors: Visitor = {
   program: visitProgram,
   pushpop: visitPushPop,
   operator: visitOperator,
   call: visitCall,
+  loop: visitLoop,
 };
 
 const visit: VisitNode<Node> = (node: Node, state: State) => {
