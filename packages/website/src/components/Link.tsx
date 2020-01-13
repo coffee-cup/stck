@@ -4,6 +4,7 @@ import { Link as GLink } from "gatsby";
 import * as React from "react";
 import { Styled } from "theme-ui";
 import theme from "../gatsby-plugin-theme-ui";
+import Button, { Props as ButtonProps } from "./Button";
 
 const StyledLink = styled(GLink)<{ empty: number }>(props =>
   css({
@@ -53,3 +54,14 @@ export const EmptyLink: React.FC<Props> = props => (
 export const MdxLink: React.FC<any> = props => {
   return <Link {...props} />;
 };
+
+const StyledButtonLink = styled(Button)(
+  css({
+    display: "inline-flex",
+    alignItems: "center",
+  }),
+);
+
+export const ButtonLink: React.FC<Props & ButtonProps> = props => (
+  <StyledButtonLink {...props} as={EmptyLink} />
+);

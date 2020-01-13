@@ -26,9 +26,9 @@ const font = [
 const theme: Theme = {
   ...system,
   colors: {
-    text: "white",
-    background: "#333",
-    primary: "#4d3ae2",
+    text: "#313131",
+    background: "white",
+    primary: "#cd4dcc",
     secondary: "text",
     muted: "#eff0f6",
     grey: "#a2a2a2",
@@ -45,7 +45,7 @@ const theme: Theme = {
     heading: `"Montserrat", ${font}`,
     monospace: "Consolas, Liberation Mono, Menlo, Courier, monospace",
   },
-  fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 96],
+  fontSizes: [12, 14, 18, 20, 24, 32, 48, 64, 96],
   sizes: {
     container: "48em",
     measure: "32em",
@@ -92,10 +92,10 @@ const theme: Theme = {
     a: {
       color: "text",
       textDecoration: "underline",
-      transition: "opacity 250ms ease-in-out",
+      transition: "color 250ms ease-in-out",
 
       "&:hover": {
-        opacity: 0.6,
+        color: "primary",
       },
     },
     p: {

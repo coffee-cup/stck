@@ -41,10 +41,11 @@ const Results = styled.div(
   css({
     fontFamily: "monospace",
     whiteSpace: "pre-wrap",
-    backgroundColor: "#282c34",
+    color: "white",
+    backgroundColor: "black",
     height: "100%",
     p: 2,
-    borderLeft: "solid 2px",
+    borderLeft: "solid 4px",
     borderColor: "primary",
   }),
 );

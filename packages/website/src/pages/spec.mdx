@@ -1,0 +1,83 @@
+import Layout from "../components/MeasureLayout";
+export default Layout;
+
+# Stck Language Spec
+
+The Stck language is defined by the following specification.
+
+## Comments
+
+Comments start with `#` and extend to the end of the line.
+
+## Primitives
+
+Stck uses two primary data types.
+
+- Numbers. _e.x. `-1, 1.2, 4, 0`_
+- Strings. _e.x. `"hello"`_
+
+## Stacks
+
+Stack are the only data structure in stck. They are identified using a sequence
+of alpha characters. They can be pushed to or popped from.
+
+- `1>a`: Push value `1` onto stack a
+- `a>b`: Pop from stack a and push value to stack b
+- `a>`: Pop from stack a
+
+Popping from an empty stack always returns 0.
+
+There are two special stacks:
+
+- Stack `i` is read only and contains the standard input.
+- Stack `o` is write only. Values pushed to this stack are sent to standard output.
+
+## Operators
+
+In addition to popping and pushing, stacks can be manipulated with operators.
+
+### Math: `+, -, *, /`
+
+_In the following examples, addition can be replaced with any of the
+mathematical operators._
+
+Syntax: `stack+operand` or `stack+stack` or `stack+`
+
+- `a+b`: Pop from a and b, perform addition, push the result to a.
+- `a+`: Pop two values from a, perform addition, push the result to a.
+- `a+4`: Pop from a, perform addition with the literal 4, push the result to a.
+
+### Clear: `?`
+
+Syntax: `stack?`
+
+Clears the stack if the topmost value is 0.
+
+## Functions
+
+Functions are defined between curly braces.
+
+Syntax: `{:name BODY}`
+
+```
+{:name
+  # function body
+}
+```
+
+When a function is called, the function body is executed. Functions can
+only be defined at the top level of a program.
+
+## Loops
+
+Loops are defined between parens
+
+Syntax: `(stack BODY)`
+
+```
+(n
+  # loop body
+)
+```
+
+A loop will execute until the stack is empty.
