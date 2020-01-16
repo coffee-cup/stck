@@ -21,6 +21,7 @@ export type Stack = Value[];
 export interface State {
   stacks: { [id: string]: Stack };
   ftable: { [name: string]: FunctionExpr };
+  isTopLevel: boolean;
 }
 
 export type VisitNode<T = Node> = (node: T, state: State) => void;
@@ -32,6 +33,7 @@ type Visitor = {
 const createEmptyState = (): State => ({
   stacks: {},
   ftable: {},
+  isTopLevel: true,
 });
 
 const isStackEmpty = (id: string, { stacks }: State): boolean =>
@@ -154,8 +156,14 @@ const visitOperator: VisitNode<Operator> = (node, state) => {
   }
 };
 
-const visitFunction: VisitNode<FunctionExpr> = (node, state) => {
+const evalFunction: VisitNode<FunctionExpr> = (node, state) => {
   node.body.forEach(node => visit(node, state));
+};
+
+const visitFunction: VisitNode<FunctionExpr> = (node, state) => {
+  if (!state.isTopLevel) {
+    throw new EvalError("Functions can only be defined at the top level", node);
+  }
 };
 
 const visitCall: VisitNode<Call> = (node, state) => {
@@ -165,19 +173,30 @@ const visitCall: VisitNode<Call> = (node, state) => {
     throw new EvalError(`Function ${node.name} is not defined`, node);
   }
 
-  visitFunction(fn, state);
+  const tmp = state.isTopLevel;
+  state.isTopLevel = false;
+
+  evalFunction(fn, state);
+
+  state.isTopLevel = tmp;
 };
 
 const visitLoop: VisitNode<Loop> = (node, state) => {
+  const tmp = state.isTopLevel;
+  state.isTopLevel = false;
+
   while (!isStackEmpty(node.stack, state)) {
     node.body.forEach(n => visit(n, state));
   }
+
+  state.isTopLevel = tmp;
 };
 
 const visitors: Visitor = {
   program: visitProgram,
   pushpop: visitPushPop,
   operator: visitOperator,
+  function: visitFunction,
   call: visitCall,
   loop: visitLoop,
 };
