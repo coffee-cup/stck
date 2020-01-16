@@ -14,7 +14,8 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "jsx": "preserve",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strict": true
   },
   "include": ["src", "typings"],
   "references": [{ "path": "../language" }]

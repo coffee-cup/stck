@@ -10,10 +10,10 @@ const StyledLink = styled(GLink)<{ empty: number }>(props =>
   css({
     ...(props.empty
       ? {
-          ...theme.styles.a,
+          ...(theme.styles || {}).a,
           textDecoration: "none",
         }
-      : theme.styles.a),
+      : (theme.styles || {}).a),
   }),
 );
 
@@ -62,6 +62,7 @@ const StyledButtonLink = styled(Button)(
   }),
 );
 
+const AnyStyledButtonLink = StyledButtonLink as any;
 export const ButtonLink: React.FC<Props & ButtonProps> = props => (
-  <StyledButtonLink {...props} as={EmptyLink} />
+  <AnyStyledButtonLink {...props} as={EmptyLink} />
 );

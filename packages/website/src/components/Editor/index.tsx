@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import css from "@styled-system/css";
 import * as React from "react";
 
-let CodeMirror = null;
+let CodeMirror: React.ComponentType<any> | null = null;
 if (typeof window !== "undefined") {
   // tslint:disable:no-var-requires
   CodeMirror = require("react-codemirror2").UnControlled;
