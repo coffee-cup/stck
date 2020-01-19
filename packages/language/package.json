@@ -4,7 +4,7 @@
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "ts-node src/cli.ts",
     "generate-parser": "pegjs --plugin ../../node_modules/ts-pegjs/src/tspegjs.js -o src/parserRaw.ts src/grammar.pegjs && prettier src/parserRaw.ts --write",
     "build": "yarn generate-parser && tsc -p .",
     "lint": "set -ex; tsc --noEmit -p .; tslint --project .",
@@ -12,17 +12,22 @@
     "clean": "rimraf lib src/parserRaw.ts *.tsbuildinfo"
   },
   "dependencies": {
+    "commander": "^4.1.0",
+    "get-stdin": "^7.0.0",
     "lodash": "^4.17.15",
     "pegjs": "^0.10.0",
     "ts-pegjs": "^0.2.6"
   },
   "devDependencies": {
+    "@types/commander": "^2.12.2",
+    "@types/get-stdin": "^7.0.0",
     "@types/jest": "^24.0.23",
     "@types/lodash": "^4.14.149",
     "@types/node": "^12.12.14",
     "@types/pegjs": "^0.10.1",
     "jest": "^24.9.0",
-    "ts-jest": "^24.2.0"
+    "ts-jest": "^24.2.0",
+    "ts-node": "^8.6.2"
   },
   "jest": {
     "transform": {
