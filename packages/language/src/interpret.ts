@@ -1,19 +1,19 @@
 import { repeat } from "lodash";
 import { EvalError, typeError } from "./errors";
 import {
+  Call,
   Expression,
+  FunctionExpr,
   Identifier,
   Literal,
+  Loop,
   Node,
-  Call,
   NodeType,
   OP,
   Operator,
   Program,
   PushPop,
   Value,
-  Loop,
-  FunctionExpr,
 } from "./types";
 
 export type Stack = Value[];
