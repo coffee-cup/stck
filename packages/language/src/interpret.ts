@@ -57,7 +57,11 @@ const pop = (id: string, { stacks }: State): Value => {
   return stack.pop()!;
 };
 
-const push = (value: Value, id: string, { stacks }: State) => {
+const push = (value: Value, id: string, { stacks }: State, node: Node) => {
+  if (id === "i") {
+    throw new EvalError("Cannot push to input stack", node);
+  }
+
   let stack = stacks[id];
   if (stack == null) {
     stack = [];
@@ -80,11 +84,11 @@ const visitPushPop: VisitNode<PushPop> = (node, state) => {
 
   if (left && left.type === "literal" && id != null) {
     // push literal onto right
-    push(left.value, id, state);
+    push(left.value, id, state, node);
   } else if (left && left.type === "identifier" && id != null) {
     // pop value from left and push onto right
     const value = pop(left.value, state);
-    push(value, id, state);
+    push(value, id, state, node);
   } else if (left && left.type === "identifier") {
     // pop from left
     pop(left.value, state);
@@ -152,7 +156,7 @@ const visitOperator: VisitNode<Operator> = (node, state) => {
       throw new EvalError(`Operator ${op} not recognized`, node);
     }
 
-    push(result, left.value, state);
+    push(result, left.value, state, node);
   }
 };
 
