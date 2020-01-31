@@ -11,7 +11,7 @@ const packageJson = JSON.parse(
 const version: string = packageJson.version;
 
 const readFile = (filename: string): Promise<string> => {
-  const fullpath = path.resolve(__dirname, filename);
+  const fullpath = path.resolve(process.cwd(), filename);
   return new Promise((resolve, reject) => {
     fs.readFile(fullpath, "utf8", (err, data) => {
       if (err != null) {
