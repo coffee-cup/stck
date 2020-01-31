@@ -48,7 +48,11 @@ const peek = (id: string, { stacks }: State): Value => {
   return stack[stack.length - 1];
 };
 
-const pop = (id: string, { stacks }: State): Value => {
+const pop = (id: string, { stacks }: State, node): Value => {
+  if (id === "o") {
+    throw new EvalError("Cannot pop from output stack", node);
+  }
+
   const stack = stacks[id];
   if (stack == null || stack.length === 0) {
     return 0;
@@ -87,11 +91,11 @@ const visitPushPop: VisitNode<PushPop> = (node, state) => {
     push(left.value, id, state, node);
   } else if (left && left.type === "identifier" && id != null) {
     // pop value from left and push onto right
-    const value = pop(left.value, state);
+    const value = pop(left.value, state, node);
     push(value, id, state, node);
   } else if (left && left.type === "identifier") {
     // pop from left
-    pop(left.value, state);
+    pop(left.value, state, node);
   } else if (left && left.type === "literal") {
     throw new EvalError("Cannot pop from literal", node);
   } else if (left == null) {
@@ -117,13 +121,13 @@ const visitOperator: VisitNode<Operator> = (node, state) => {
     }
   } else {
     // multiple operands
-    const val1: any = pop(left.value, state);
+    const val1: any = pop(left.value, state, node);
     const val2: any =
       right == null
-        ? pop(left.value, state)
+        ? pop(left.value, state, node)
         : right.type === "literal"
         ? right.value
-        : pop(right.value, state);
+        : pop(right.value, state, node);
 
     let result: Value = 0;
 
