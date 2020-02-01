@@ -48,7 +48,7 @@ describe("interpret", () => {
     expect(run(`{:foo 1>a a-2 a>o} :foo`)).toEqual([-1]);
   });
 
-  it.only("only allows functions to be defined at top level", () => {
+  it("only allows functions to be defined at top level", () => {
     expect(() => run(`{:foo {:bar} } :foo`)).toThrow();
     expect(() => run(`1>a (a a>b {:bar} )`)).toThrow();
   });
