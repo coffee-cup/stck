@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as getStdin from "get-stdin";
 import * as path from "path";
 import { interpret } from "./interpret";
+import { Value } from "./types";
 import { parse } from "./parser";
 
 const packageJson = JSON.parse(
@@ -28,7 +29,7 @@ const log = (s: string) => {
   console.log(s);
 };
 
-const run = async () => {
+const run = async (input: Value[]) => {
   const program = new commander.Command();
   program.version(version);
 
@@ -44,7 +45,7 @@ const run = async () => {
     const filename = program.args[0];
     const contents = await readFile(filename);
     const ast = parse(contents);
-    const state = interpret(ast);
+    const state = interpret(ast, input);
 
     const output = state.stacks.o || [];
 
@@ -59,4 +60,21 @@ const run = async () => {
   }
 };
 
-run();
+const numRegex = /^-?\d+\.?\d*$/;
+const parseStdin = (stdin: string): Value[] =>
+  stdin.split("\n").map(line => {
+    try {
+      if (numRegex.test(line)) {
+        return parseFloat(line);
+      }
+    } catch (e) {
+      // do nothing
+    }
+
+    return line;
+  });
+
+getStdin().then(stdin => {
+  const inputStack = parseStdin(stdin.trim());
+  run(inputStack);
+});

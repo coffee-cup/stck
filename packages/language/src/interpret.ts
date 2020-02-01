@@ -30,8 +30,10 @@ type Visitor = {
   [Type in Node["type"]]?: VisitNode<Extract<Node, { type: Type }>>;
 };
 
-const createEmptyState = (): State => ({
-  stacks: {},
+const createState = (input: Value[] = []): State => ({
+  stacks: {
+    i: input,
+  },
   ftable: {},
   isTopLevel: true,
 });
@@ -229,8 +231,8 @@ const createFTable = (program: Program, state: State) => {
   });
 };
 
-export const interpret = (program: Program): State => {
-  const state = createEmptyState();
+export const interpret = (program: Program, input: Value[] = []): State => {
+  const state = createState(input);
 
   createFTable(program, state);
 
