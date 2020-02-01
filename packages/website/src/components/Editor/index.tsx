@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
+import * as cm from "codemirror";
 import css from "@styled-system/css";
 import * as React from "react";
+import { Error } from "../../types";
 
 let CodeMirror: React.ComponentType<any> | null = null;
 if (typeof window !== "undefined") {
@@ -19,6 +21,7 @@ if (typeof window !== "undefined") {
 
 export interface Props {
   value: string;
+  errors: Error[];
   onChange: (value: string) => void;
 }
 
@@ -40,20 +43,27 @@ const codemirrorConfig = {
   },
 };
 
-const Editor: React.FC<Props> = props => (
-  <EditorContainer>
-    {CodeMirror != null && (
-      <CodeMirror
-        value={props.value}
-        detach={true}
-        options={codemirrorConfig}
-        onChange={(_editor, _data, value) => {
-          props.onChange(value);
-        }}
-      />
-    )}
-  </EditorContainer>
-);
+const Editor: React.FC<Props> = props => {
+  const instanceRef = React.useRef<cm.Editor | null>(null);
+
+  return (
+    <EditorContainer>
+      {CodeMirror != null && (
+        <CodeMirror
+          value={props.value}
+          detach={true}
+          options={codemirrorConfig}
+          onChange={(_editor, _data, value) => {
+            props.onChange(value);
+          }}
+          editorDidMount={instance => {
+            instanceRef.current = instance;
+          }}
+        />
+      )}
+    </EditorContainer>
+  );
+};
 
 export default Editor;
 

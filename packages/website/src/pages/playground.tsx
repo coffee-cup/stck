@@ -87,7 +87,11 @@ const Playground = () => {
       <StyledPlayground className="playground">
         <Split className="split">
           <EditorContainer>
-            <Editor value={code} onChange={actions.onCodeChange} />
+            <Editor
+              value={code}
+              errors={error != null ? [error] : []}
+              onChange={actions.onCodeChange}
+            />
           </EditorContainer>
 
           <ResultsContainer>
