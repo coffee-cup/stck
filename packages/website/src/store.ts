@@ -42,9 +42,22 @@ const saveOptions: Middleware<StoreType> = config => (set, get, api) =>
     api,
   );
 
+const initCode = `
+1>a
+2>a
+a+a
+
+(a
+  a>b
+)
+
+"hello">o
+"world">o
+`.trim();
+
 const getInititalState = (): State => {
   const initialState: State = {
-    code: "",
+    code: initCode,
     error: null,
     result: null,
   };

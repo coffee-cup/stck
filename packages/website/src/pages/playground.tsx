@@ -42,7 +42,7 @@ const Results = styled.div(
     fontFamily: "monospace",
     whiteSpace: "pre-wrap",
     color: "white",
-    backgroundColor: "black",
+    backgroundColor: "editor",
     height: "100%",
     p: 2,
     borderLeft: "solid 4px",

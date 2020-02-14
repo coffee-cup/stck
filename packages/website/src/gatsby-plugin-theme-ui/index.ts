@@ -32,6 +32,7 @@ const theme: Theme = {
     secondary: "text",
     muted: "#eff0f6",
     grey: "#a2a2a2",
+    editor: "#282c34",
   },
   breakpoints: ["40em", "52em", "64em"],
   fontWeights: {
