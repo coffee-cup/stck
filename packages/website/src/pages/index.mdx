@@ -11,20 +11,77 @@ programming language](https://esolangs.org/wiki/Esoteric_programming_language).
 Data is stored on an unlimited number of stacks. Stacks can be pushed to,
 popped from, or manipulated with operators.
 
-<ButtonLink to="/playground" primary={1}>Playground</ButtonLink>
-
-## Getting Started
-
-You can use Stck via the [online playground](/playground). NPM installation is
-coming soon.
-
-The hello world program is as follows.
-
 ```
 "Hello, World!">o
 ```
 
-For more information on the syntax, [read the spec](/spec).
+<ButtonLink to="/playground" primary={1}>Playground</ButtonLink>
+
+## Getting Started
+
+You can use Stck via the [online playground](/playground) or install it with NPM.
+
+```sh
+npm i -g stck
+```
+
+For information on the syntax, [read the spec](/spec).
+
+## Usage
+
+The `stck` command accepts a single filename as a parameter.
+
+The following command will run the file example.stck.
+
+```sh
+stck example.stck
+```
+
+You can pass input to your program via stdin.
+
+```sh
+echo "1\n2\nworld" | yarn start examples/hello.stck
+```
+
+stdin is parsed and each line is pushed as a value onto the input stack (`i`).
+Numbers are parsed as number and everything else is a string.
+
+Stck can also be used programmatically with the `run` function. The second
+parameter is optional and is the value of the input stack. The contents of the
+output stack are returned.
+
+```ts
+import { run } from "stck";
+run("i>o", [1])
+// => [1]
+```
+
+## Example
+
+If the you have the following program in `example.stck`.
+
+```
+"hello ">o i>o "
+">o
+i>a i>a a+a a>o
+```
+
+when run with the command
+
+```sh
+echo "1\n2\nworld" | yarn start examples/hello.stck
+```
+
+The output will be
+
+```
+hello world
+3
+```
+
+## Source
+
+Find the source on [Github](https://github.com/coffee-cup/stck).
 
 ## Acknowledgements
 

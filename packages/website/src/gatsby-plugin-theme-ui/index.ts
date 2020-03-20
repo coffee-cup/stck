@@ -68,10 +68,11 @@ const theme: Theme = {
     },
     h1: {
       ...heading,
-      fontSize: [6, 7],
+      fontSize: [5, 6, 7],
     },
     h2: {
       ...heading,
+      mt: 4,
       fontSize: 4,
     },
     h3: {

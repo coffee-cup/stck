@@ -6,7 +6,7 @@ const Container = styled.div(
     width: "100%",
     maxWidth: "container",
     mx: "auto",
-    px: 4,
+    px: [3, 4],
   }),
 );
 

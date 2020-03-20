@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import css from "@styled-system/css";
 import * as React from "react";
 import Link from "./Link";
-import Container from "./Container";
 
 const StyledHeader = styled.header(
   css({
@@ -21,7 +20,7 @@ const HeaderContainer = styled.div(
     justifyContent: "space-between",
     width: "container",
     mx: "auto",
-    px: 4,
+    px: [3, 4],
   }),
 );
 

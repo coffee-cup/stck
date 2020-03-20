@@ -1,12 +1,4 @@
-import { interpret, parse, Value } from "../";
-
-const run = (code: string): Value[] => {
-  const program = parse(code);
-  const state = interpret(program);
-
-  const output = state.stacks.o || [];
-  return output;
-};
+import { run } from "../";
 
 describe("interpret", () => {
   it("comments do nothing", () => {
@@ -46,6 +38,10 @@ describe("interpret", () => {
     expect(run(`{:foo 1>o} :foo`)).toEqual([1]);
     expect(run(`{:foo 1>a a+1 a>o} :foo`)).toEqual([2]);
     expect(run(`{:foo 1>a a-2 a>o} :foo`)).toEqual([-1]);
+  });
+
+  it("uses input stack", () => {
+    expect(run(`i>o`, [1])).toEqual([1]);
   });
 
   it("only allows functions to be defined at top level", () => {
