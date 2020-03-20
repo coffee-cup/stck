@@ -1,6 +1,8 @@
 # Stck lang
 
 [![](https://github.com/coffee-cup/stck/workflows/CI/badge.svg)](https://github.com/coffee-cup/stck/actions?query=workflow%3ACI)
+[![](https://img.shields.io/npm/v/stck?style=flat-square)](https://www.npmjs.com/package/stck)
+[![](https://img.shields.io/github/license/coffee-cup/stck?style=flat-square&color=brightgreen)](https://github.com/coffee-cup/stck/blob/master/LICENSE)
 
 Stck is a minimal [stack based](https://en.wikipedia.org/wiki/Stack-oriented_programming)
 [esoteric programming language](https://esolangs.org/wiki/Esoteric_programming_language).
@@ -8,6 +10,10 @@ Data is stored on an unlimited number of stacks. Stacks can be pushed to, popped
 from, or manipulated with operators.
 
 The language spec can be found at [stck.jakerunzer.com/spec](https://stck.jakerunzer.com/stck).
+
+```sh
+npx stck file.stck
+```
 
 ## Features
 

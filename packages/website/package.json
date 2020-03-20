@@ -35,7 +35,7 @@
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.0",
     "react-markdown": "^4.2.2",
-    "stck": "1.0.0",
+    "stck": "1.0.1",
     "theme-ui": "^0.2.49",
     "zustand": "^2.2.1"
   },

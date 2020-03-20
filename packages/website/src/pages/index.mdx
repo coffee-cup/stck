@@ -1,7 +1,7 @@
 import Layout from "../components/MeasureLayout";
 export default Layout;
 
-import {ButtonLink} from "../components/Link"
+import { ButtonLink } from "../components/Link";
 
 # Stck Programming Language
 
@@ -15,11 +15,14 @@ popped from, or manipulated with operators.
 "Hello, World!">o
 ```
 
-<ButtonLink to="/playground" primary={1}>Playground</ButtonLink>
+<ButtonLink to="/playground" primary={1}>
+  Playground
+</ButtonLink>
 
 ## Getting Started
 
-You can use Stck via the [online playground](/playground) or install it with NPM.
+You can use Stck via the [online playground](/playground), install it with [NPM](https://www.npmjs.com/package/stck),
+or try it out with [NPX](https://www.npmjs.com/package/npx).
 
 ```sh
 npm i -g stck
@@ -35,6 +38,8 @@ The following command will run the file example.stck.
 
 ```sh
 stck example.stck
+# OR
+npx stck example.stck
 ```
 
 You can pass input to your program via stdin.
@@ -52,7 +57,7 @@ output stack are returned.
 
 ```ts
 import { run } from "stck";
-run("i>o", [1])
+run("i>o", [1]);
 // => [1]
 ```
 

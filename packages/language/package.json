@@ -1,16 +1,17 @@
 {
   "name": "stck",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "lib/index.js",
   "license": "MIT",
   "description": "Stack based esoteric programming language",
   "files": [
-    "lib"
+    "lib",
+    "README.md"
   ],
   "bin": {
     "stck": "./lib/cli.js"
   },
-  "homepage": "https://github.com/coffee-cup/stck",
+  "homepage": "https://github.com/coffee-cup/stck#readme",
   "bugs": {
     "url": "https://github.com/coffee-cup/stck/issues"
   },
@@ -25,7 +26,8 @@
     "build": "yarn clean && yarn generate-parser && tsc -p .",
     "lint": "set -ex; tsc --noEmit -p .; tslint --project .",
     "test": "yarn generate-parser && jest",
-    "clean": "rimraf lib src/parserRaw.ts *.tsbuildinfo"
+    "clean": "rimraf lib src/parserRaw.ts *.tsbuildinfo",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "commander": "^4.1.0",
