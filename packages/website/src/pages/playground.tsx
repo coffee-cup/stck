@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import css from "@styled-system/css";
 import * as React from "react";
-import { interpret, parse, State as IState } from "stck";
+import { State as IState } from "stck";
 import { Styled } from "theme-ui";
 import Editor from "../components/Editor";
 import Layout from "../components/Layout";
@@ -79,6 +79,11 @@ const formatError = (error: Error): string =>
 
 const Playground = () => {
   const { code, result, error, actions } = useStore();
+
+  // trigger execution on first load
+  React.useEffect(() => {
+    actions.onCodeChange(code);
+  }, []);
 
   const renderEditor = typeof window !== "undefined";
 
