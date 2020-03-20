@@ -31,6 +31,7 @@ const log = (s: string) => {
 
 const run = async (input: Value[]) => {
   const program = new commander.Command();
+  program.usage("filename");
   program.version(version);
 
   program.parse(process.argv);
