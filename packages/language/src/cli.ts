@@ -3,8 +3,8 @@ import * as fs from "fs";
 import * as getStdin from "get-stdin";
 import * as path from "path";
 import { interpret } from "./interpret";
-import { Value } from "./types";
 import { parse } from "./parser";
+import { Value } from "./types";
 
 const packageJson = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, "../package.json"), "utf8"),
@@ -61,8 +61,12 @@ const run = async (input: Value[]) => {
 };
 
 const numRegex = /^-?\d+\.?\d*$/;
-const parseStdin = (stdin: string): Value[] =>
-  stdin.split("\n").map(line => {
+export const parseStdin = (stdin: string): Value[] => {
+  if (stdin == null || stdin === "") {
+    return [];
+  }
+
+  return stdin.split("\n").map(line => {
     try {
       if (numRegex.test(line)) {
         return parseFloat(line);
@@ -73,6 +77,7 @@ const parseStdin = (stdin: string): Value[] =>
 
     return line;
   });
+};
 
 getStdin().then(stdin => {
   const inputStack = parseStdin(stdin.trim());
