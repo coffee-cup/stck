@@ -52,4 +52,12 @@ describe("interpret", () => {
     expect(() => run(`{:foo {:bar} } :foo`)).toThrow();
     expect(() => run(`1>a (a a>b {:bar} )`)).toThrow();
   });
+
+  it("throws error when pushing to input stack", () => {
+    expect(() => run(`1>i`)).toThrow();
+  });
+
+  it("throws error when popping from output stack", () => {
+    expect(() => run(`o>`)).toThrow();
+  });
 });
