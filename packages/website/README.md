@@ -1,7 +1,4 @@
-# [jakerunzer.com](https://jakerunzer.com)
-
-Source for my home on the internet. This is a
-[GatsbyJS](https://www.gatsbyjs.org/) site.
+This is a GatsbyJS site
 
 ## Development
 
