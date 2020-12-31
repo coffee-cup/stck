@@ -21,7 +21,7 @@
     "@mdx-js/react": "^1.5.1",
     "@mdx-js/tag": "^0.20.3",
     "@reach/router": "^1.2.1",
-    "@styled-system/css": "^5.1.4",
+    "@styled-system/css": "^5.1.5",
     "@theme-ui/presets": "^0.2.44",
     "@theme-ui/prism": "^0.2.50",
     "codemirror": "^5.49.2",
