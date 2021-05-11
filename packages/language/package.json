@@ -34,7 +34,7 @@
   "dependencies": {
     "commander": "^5.0.0",
     "get-stdin": "^7.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "pegjs": "^0.10.0",
     "ts-pegjs": "^0.2.6"
   },
