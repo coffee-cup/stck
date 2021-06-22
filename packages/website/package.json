@@ -24,7 +24,7 @@
     "@styled-system/css": "^5.1.4",
     "@theme-ui/presets": "^0.2.44",
     "@theme-ui/prism": "^0.2.50",
-    "codemirror": "^5.49.2",
+    "codemirror": "^5.62.0",
     "dayjs": "^1.8.16",
     "gray-percentage": "^2.0.0",
     "normalize.css": "^8.0.1",
