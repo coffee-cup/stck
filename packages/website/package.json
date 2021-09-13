@@ -25,7 +25,7 @@
     "@theme-ui/presets": "^0.2.44",
     "@theme-ui/prism": "^0.2.50",
     "codemirror": "^5.49.2",
-    "dayjs": "^1.8.16",
+    "dayjs": "^1.10.7",
     "gray-percentage": "^2.0.0",
     "normalize.css": "^8.0.1",
     "prism-react-renderer": "^0.1.5",
