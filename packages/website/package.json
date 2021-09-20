@@ -29,7 +29,7 @@
     "gray-percentage": "^2.0.0",
     "normalize.css": "^8.0.1",
     "prism-react-renderer": "^0.1.5",
-    "prismjs": "^1.17.1",
+    "prismjs": "^1.25.0",
     "react": "^16.12.0",
     "react-codemirror2": "^6.0.0",
     "react-dom": "^16.12.0",
