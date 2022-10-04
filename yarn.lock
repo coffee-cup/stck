@@ -1621,12 +1621,12 @@
     "@theme-ui/preset-tailwind" "^0.2.42"
     "@theme-ui/preset-tosh" "^0.2.40"
 
-"@theme-ui/prism@^0.2.50":
-  version "0.2.50"
-  resolved "https://registry.yarnpkg.com/@theme-ui/prism/-/prism-0.2.50.tgz#0f1dafb7d71248ba26f90cddc643b414dd9f4378"
-  integrity sha512-FD9UtROhol8limL2XtQPfnTUfUJETUC37wYW6dSIfVCDR4l0CSbqYS+niQAqVGcuD0wtL1pbkvb/qDtUg94Ebw==
+"@theme-ui/prism@^0.15.1":
+  version "0.15.1"
+  resolved "https://registry.yarnpkg.com/@theme-ui/prism/-/prism-0.15.1.tgz#8db42cdbff2a9caeb1990a5e49e02bb8de1f13e8"
+  integrity sha512-e07jdrRVuGZ21jDcKps/1Ti68P7GepqfOrqonP3P/voBAIVLRAOrDOSi7RJ9g/tB03HYRvkxAGMFVUWObDGhCQ==
   dependencies:
-    prism-react-renderer "^1.0.2"
+    prism-react-renderer "^1.1.1"
 
 "@theme-ui/style-guide@^0.2.49":
   version "0.2.49"
@@ -11876,10 +11876,10 @@ prism-react-renderer@^0.1.5:
   resolved "https://registry.yarnpkg.com/prism-react-renderer/-/prism-react-renderer-0.1.7.tgz#dc273d0cb6e4a498ba0775094e9a8b01a3ad2eaa"
   integrity sha512-EhnM0sYfLK103ASK0ViSv0rta//ZGB0dBA9TiFyOvA+zOj5peLmGEG01sLEDwl9sMe+gSqncInafBe1VFTCMvA==
 
-prism-react-renderer@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/prism-react-renderer/-/prism-react-renderer-1.0.2.tgz#3bb9a6a42f76fc049b03266298c7068fdd4b7ea9"
-  integrity sha512-0++pJyRfu4v2OxI/Us/5RLui9ESDkTiLkVCtKuPZYdpB8UQWJpnJQhPrWab053XtsKW3oM0sD69uJ6N9exm1Ag==
+prism-react-renderer@^1.1.1:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/prism-react-renderer/-/prism-react-renderer-1.3.5.tgz#786bb69aa6f73c32ba1ee813fbe17a0115435085"
+  integrity sha512-IJ+MSwBWKG+SM3b2SUfdrhC+gu01QkV2KmRQgREThBfSQRoufqRfxfHUxpG1WcaFjP+kojcFyO9Qqtpgt3qLCg==
 
 prismjs@^1.17.1:
   version "1.17.1"
